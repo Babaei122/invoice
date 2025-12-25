@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice • Armin Babaei</title>
+  <style>
+    @font-face {
+      font-family: 'IRANSansX';
+      src: url('./IRANSansX-Light.otf') format('opentype'), url('./IRANSansX-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANSansX';
+      src: url('./IRANSansX-Medium.otf') format('opentype'), url('./IRANSansX-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANSansX';
+      src: url('./IRANSansX-DemiBold.otf') format('opentype'), url('./IRANSansX-DemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANSansX';
+      src: url('./IRANSansX-Bold.otf') format('opentype'), url('./IRANSansX-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IRANSansX';
+      src: url('./IRANSansX-ExtraBold.otf') format('opentype'), url('./IRANSansX-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --ink:#0f2233;
+      --muted:#5b7487;
+      --bg:#e9f0f3;
+      --card:#ffffff;
+      --line:rgba(15,34,51,.10);
+      --shadow:0 18px 40px rgba(12, 34, 52, .12);
+
+      --blue:#0d4f73;
+      --blue2:#0e6a92;
+      --cyan:#8fb8c8;
+      --ice:#dfeef4;
+
+      --r-xl:28px;
+      --r-lg:22px;
+      --r-md:16px;
+
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html, body, button, input, textarea, select {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
+      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial !important;
+    }
+    body{ font-weight: 500; }
+    h1, h2, h3{ font-weight: 800; }
+    b, strong{ font-weight: 700; }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(14,106,146,.16), transparent 60%),
+        radial-gradient(900px 520px at 85% 0%, rgba(143,184,200,.28), transparent 55%),
+        linear-gradient(180deg, var(--bg), #f7fbfd 65%);
+    }
+    .topo{display:none !important;}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 70px;}
+
+    .toolbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(247,251,253,.74);
+      backdrop-filter: blur(10px);
+      border:1px solid var(--line);
+      border-radius:999px;
+      box-shadow: 0 10px 26px rgba(12,34,52,.08);
+      padding:10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .chip{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.65));
+    }
+
+    .avatar{
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      overflow:hidden;
+      background:linear-gradient(135deg, var(--blue), var(--cyan));
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .chip b{font-size:13px}
+    .chip span{font-size:12px; color:var(--muted)}
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap}
+
+    .btn{
+      cursor:pointer;
+      border:none;
+      border-radius:999px;
+      padding:10px 12px;
+      font-weight:750;
+      font-size:13px;
+      color:#fff;
+      background:linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow:0 12px 22px rgba(13,79,115,.18);
+    }
+    .btn.secondary{
+      color:var(--ink);
+      background:rgba(255,255,255,.8);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--r-xl);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card .pad{padding:22px;}
+
+    .hero{
+      background:
+        radial-gradient(700px 280px at 30% 20%, rgba(14,106,146,.14), transparent 55%),
+        radial-gradient(760px 260px at 85% 55%, rgba(143,184,200,.24), transparent 60%),
+        linear-gradient(180deg, rgba(223,238,244,.75), rgba(255,255,255,.95));
+    }
+
+    .heroTop{display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+
+    .title{
+      margin:0;
+      font-size:28px;
+      letter-spacing:-.2px;
+      color:var(--ink);
+    }
+
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:13.5px;
+    }
+
+    .metaGrid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .meta{
+      border:1px solid var(--line);
+      border-radius:var(--r-lg);
+      padding:12px 14px;
+      background:rgba(255,255,255,.9);
+    }
+
+    .meta .k{color:var(--muted); font-size:12px; margin-bottom:6px}
+    .meta .v{font-weight:800; font-size:13.5px; line-height:1.5}
+
+    .sectionTitle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 12px;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow:0 0 0 6px rgba(14,106,146,.10);
+      flex:0 0 auto;
+    }
+
+    .sectionTitle h2{margin:0; font-size:16px}
+
+    .list{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+    .list li{
+      border:1px solid var(--line);
+      border-radius:var(--r-lg);
+      padding:12px 14px;
+      background:rgba(247,251,253,.7);
+      line-height:1.8;
+      font-size:13.3px;
+      color:rgba(15,34,51,.92);
+    }
+
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:var(--r-xl);
+      background:#fff;
+    }
+
+    .table th, .table td{
+      padding:12px 14px;
+      font-size:13px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .table th{
+      text-align:right;
+      color:var(--muted);
+      font-weight:800;
+      background:linear-gradient(180deg, rgba(223,238,244,.8), rgba(255,255,255,.95));
+    }
+
+    .table tr:last-child td{border-bottom:none}
+
+    .right{ text-align:right }
+    .left{ text-align:left }
+
+    .money{font-weight:800}
+
+    .summary{
+      display:grid;
+      gap:10px;
+    }
+
+    .sumRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      border:1px solid var(--line);
+      border-radius:var(--r-lg);
+      padding:12px 14px;
+      background:rgba(247,251,253,.7);
+      font-size:13.2px;
+    }
+
+    .sumRow b{font-weight:900}
+
+    .sumRow.total{
+      background:linear-gradient(135deg, rgba(13,79,115,.08), rgba(143,184,200,.18));
+      border-color:rgba(13,79,115,.18);
+    }
+
+    .note{
+      border:1px dashed rgba(15,34,51,.22);
+      border-radius:var(--r-xl);
+      padding:14px 16px;
+      background:rgba(255,255,255,.85);
+      color:rgba(15,34,51,.9);
+      line-height:1.85;
+      font-size:13px;
+    }
+
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:14px 16px;
+      border-top:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(223,238,244,.55), rgba(255,255,255,.95));
+    }
+
+    .contact{
+      display:grid;
+      gap:8px;
+      color:rgba(15,34,51,.92);
+      font-size:13px;
+    }
+
+    .cRow{display:flex; gap:10px; align-items:center}
+    .ico{
+      width:30px;
+      height:30px;
+      border-radius:12px;
+      background:rgba(14,106,146,.10);
+      border:1px solid rgba(14,106,146,.18);
+      display:grid;
+      place-items:center;
+      color:var(--blue);
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(13,79,115,.08);
+      border:1px solid rgba(13,79,115,.14);
+      color:rgba(15,34,51,.88);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .split{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+    .small{font-size:12px; color:var(--muted); line-height:1.7}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .metaGrid{grid-template-columns:1fr}
+    }
+
+    @media print{
+      .toolbar{display:none !important}
+      body{background:#fff !important}
+      .card{box-shadow:none !important}
+      .topo{display:none !important}
+    }
+  </style>
+</head>
+<body>
+    <div class="wrap">
+    <div class="toolbar">
+      <div class="chip">
+        <div class="avatar" id="avatar">AB</div>
+        <div style="display:flex; flex-direction:column; line-height:1.1;">
+          <b id="designerName">Armin Babaei</b>
+          <span id="designerRole">Graphic Designer</span>
+        </div>
+      </div>
+      <div class="btns">
+        <button class="btn secondary" id="copyLinkBtn" type="button">کپی لینک</button>
+        <button class="btn secondary" id="copyJsonBtn" type="button">کپی اطلاعات</button>
+        <button class="btn" id="printBtn" type="button">پرینت / PDF</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card hero">
+        <div class="pad">
+          <div class="heroTop">
+            <div>
+              <h1 class="title" id="pageTitle">فاکتور نهایی پروژه</h1>
+              <p class="sub" id="pageSubtitle">این سند، خلاصهٔ خدمات ارائه‌شده و وضعیت مالی پروژه را به‌صورت شفاف نمایش می‌دهد.</p>
+            </div>
+            <div class="split">
+              <span class="pill" id="invoiceNo">Invoice #—</span>
+              <span class="badge" id="statusPill">Final</span>
+            </div>
+          </div>
+
+          <div class="metaGrid" style="margin-top:14px;">
+            <div class="meta">
+              <div class="k">کارفرما</div>
+              <div class="v" id="clientName">—</div>
+              <div class="small" id="clientMeta">—</div>
+            </div>
+            <div class="meta">
+              <div class="k">پروژه</div>
+              <div class="v" id="projectName">—</div>
+              <div class="small" id="projectMeta">—</div>
+            </div>
+            <div class="meta">
+              <div class="k">تاریخ قرارداد</div>
+              <div class="v" id="contractDate">—</div>
+              <div class="small" id="contractRef">—</div>
+            </div>
+            <div class="meta">
+              <div class="k">پلن خدمات</div>
+              <div class="v" id="planName">—</div>
+              <div class="small" id="planRange">—</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="note" id="introNote"></div>
+        </div>
+
+        <div class="footer">
+          <div class="contact">
+            <div class="cRow"><span class="ico">☎</span><span id="phone">—</span></div>
+            <div class="cRow"><span class="ico">✉</span><span id="email">—</span></div>
+            <div class="cRow"><span class="ico">⌁</span><span id="instagram">—</span></div>
+          </div>
+          <div style="text-align:left">
+            <div class="small">طراح</div>
+            <div style="font-weight:900" id="signatureName">—</div>
+            <div class="small" id="signatureDate">—</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="pad">
+          <div class="sectionTitle"><span class="dot"></span><h2>خدمات و خروجی‌ها</h2></div>
+          <ul class="list" id="servicesList"></ul>
+
+          <div style="height:14px"></div>
+          <div class="sectionTitle"><span class="dot"></span><h2>خلاصه مالی</h2></div>
+          <div class="summary">
+            <div class="sumRow"><span>مبلغ قرارداد</span><b class="money" id="totalAmount">—</b></div>
+            <div class="sumRow"><span>جمع پرداخت‌ها</span><b class="money" id="paidAmount">—</b></div>
+            <div class="sumRow total"><span>مانده قابل پرداخت</span><b class="money" id="dueAmount">—</b></div>
+          </div>
+
+          <div style="height:14px"></div>
+          <div class="sectionTitle"><span class="dot"></span><h2>اطلاعات پرداخت</h2></div>
+          <div style="border:1px solid var(--line); border-radius:var(--r-xl); background:rgba(247,251,253,.55); padding:14px;">
+            <div style="border-radius:20px; padding:18px; background:linear-gradient(135deg, var(--blue), var(--blue2)); color:#fff;">
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                <div>
+                  <div style="font-size:12px; opacity:.9">شماره کارت</div>
+                  <div id="cardNumber" style="font-size:18px; letter-spacing:2px; font-weight:800; margin:6px 0 0">—</div>
+                </div>
+                <button class="btn secondary" id="copyCardBtn" type="button" style="border-color:rgba(255,255,255,.25); background:rgba(255,255,255,.18); color:#fff;">کپی</button>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:12px;">
+                <div>
+                  <div style="font-size:12px; opacity:.9">نام دارنده</div>
+                  <div id="cardHolder" style="font-weight:700">—</div>
+                </div>
+                <div>
+                  <div style="font-size:12px; opacity:.9">بانک</div>
+                  <div id="cardBank" style="font-weight:700">—</div>
+                </div>
+              </div>
+            </div>
+            <div class="small" style="margin-top:10px;">لطفاً پس از انجام واریز، رسید پرداخت را ارسال فرمایید.</div>
+          </div>
+
+          <div style="height:14px"></div>
+          <div class="sectionTitle"><span class="dot"></span><h2>ریز پرداخت‌ها</h2></div>
+          <table class="table" aria-label="Payments">
+            <thead>
+              <tr>
+                <th class="right">مرحله</th>
+                <th class="right">توضیح</th>
+                <th class="left">مبلغ</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsBody"></tbody>
+          </table>
+
+          <div style="height:14px"></div>
+          <div class="note" id="thankYou"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const DATA = {
+      brand: {
+        designerName: "Armin Babaei",
+        designerRole: "Graphic Designer",
+        phone: "+98 933 174 1220",
+        email: "babaeiarmin175@gmail.com",
+        instagram: "armin.b1220"
+      },
+      invoice: {
+        number: "CB-1404-001",
+        status: "Final",
+        title: "فاکتور نهایی پروژه طراحی لوگو",
+        subtitle: "این سند، خلاصهٔ خدمات ارائه‌شده و وضعیت مالی پروژه را به‌صورت شفاف نمایش می‌دهد.",
+        issueDate: "امروز",
+        contractDate: "۱۴۰۴/۰۸/۱۸",
+        contractRef: "مطابق قرارداد همکاری طراحی و تبلیغات"
+      },
+      client: {
+        name: "CloudiBash (جناب آقای سجاد محمدبیگی سلخوری)",
+        meta: "کارفرما / نماینده برند"
+      },
+      project: {
+        name: "Logo Mark Design — CloudiBash",
+        meta: "Symbol Only • Cloud + Bash / Terminal"
+      },
+      plan: {
+        name: "پلن حرفه‌ای طراحی لوگو",
+        range: "بازه پلن: ۵,۰۰۰,۰۰۰ تا ۱۰,۰۰۰,۰۰۰ تومان",
+        total: 8500000
+      },
+      paymentCard: {
+        holder: "آرمین بابایی لیف شاگرد",
+        number: "5022291520370980",
+        displayNumber: "5022 2915 2037 0980",
+        bank: "بانک پاسارگاد"
+      },
+      services: [
+        "طراحی لوگومارک به‌صورت Symbol Only (بدون تایپوگرافی نام برند)",
+        "طراحی مینیمال، مدرن و مهندسی‌شده با ضخامت یکنواخت و گوشه‌های نرم",
+        "ترکیب مفهومی Cloud Infrastructure با نشانه‌های Bash ( > و - ) به‌صورت فرم گرافیکی",
+        "ارائه نسخه‌های Primary / Monochrome / Invert",
+        "بهینه‌سازی برای وب‌سایت، داشبورد، CLI، آیکن اپ و فاوآیکن",
+        "تحویل خروجی‌های نهایی تصویری (PNG / JPG)"
+      ],
+      payments: [
+        { stage: "مرحله ۱", note: "پرداخت اولیه", amount: 1500000 },
+        { stage: "مرحله ۲", note: "پرداخت مرحله دوم", amount: 2000000 }
+      ],
+      texts: {
+        intro: "این فاکتور بابت طراحی لوگومارک اختصاصی برند CloudiBash صادر شده و مطابق قرارداد منعقدشده بین طرفین می‌باشد. خدمات ارائه‌شده طبق پلن حرفه‌ای انجام شده و پروژه در وضعیت نهایی (Final) قرار دارد.",
+        thanks: "از همکاری ارزشمند، اعتماد و صبوری شما در طول اجرای پروژه صمیمانه سپاسگزارم. بازخوردهای دقیق و تعامل حرفه‌ای شما نقش مهمی در رسیدن به نتیجه نهایی داشت. پس از تسویه مبلغ باقی‌مانده، فایل‌های نهایی به‌صورت کامل تحویل خواهد شد."
+      }
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    const formatToman = (n) => {
+      const x = Math.round(Number(n) || 0);
+      const s = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return s + " تومان";
+    };
+
+    const safeText = (el, txt) => { if(el) el.textContent = txt ?? ""; };
+
+    const render = () => {
+      safeText($("designerName"), DATA.brand.designerName);
+      safeText($("designerRole"), DATA.brand.designerRole);
+      safeText($("phone"), DATA.brand.phone);
+      safeText($("email"), DATA.brand.email);
+      safeText($("instagram"), DATA.brand.instagram);
+      safeText($("signatureName"), DATA.brand.designerName);
+      safeText($("signatureDate"), "تاریخ صدور: " + (DATA.invoice.issueDate || "—"));
+
+      const initials = (DATA.brand.designerName || "AB").split(/\s+/).slice(0,2).map(s => s[0]).join("").toUpperCase();
+      safeText($("avatar"), initials || "AB");
+
+      safeText($("pageTitle"), DATA.invoice.title);
+      safeText($("pageSubtitle"), DATA.invoice.subtitle);
+      safeText($("invoiceNo"), "Invoice #" + (DATA.invoice.number || "—"));
+      safeText($("statusPill"), DATA.invoice.status || "—");
+
+      safeText($("clientName"), DATA.client.name);
+      safeText($("clientMeta"), DATA.client.meta);
+
+      safeText($("projectName"), DATA.project.name);
+      safeText($("projectMeta"), DATA.project.meta);
+
+      safeText($("contractDate"), DATA.invoice.contractDate);
+      safeText($("contractRef"), DATA.invoice.contractRef);
+
+      safeText($("planName"), DATA.plan.name);
+      safeText($("planRange"), DATA.plan.range);
+
+      if($("introNote")) $("introNote").textContent = DATA.texts.intro;
+      if($("thankYou")) $("thankYou").textContent = DATA.texts.thanks;
+
+      const list = $("servicesList");
+      list.innerHTML = "";
+      (DATA.services || []).forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = s;
+        list.appendChild(li);
+      });
+
+      const total = Number(DATA.plan.total || 0);
+      const paid = (DATA.payments || []).reduce((a,p) => a + Number(p.amount || 0), 0);
+      const due = Math.max(0, total - paid);
+
+      safeText($("totalAmount"), formatToman(total));
+      safeText($("paidAmount"), formatToman(paid));
+      safeText($("dueAmount"), formatToman(due));
+
+      const cardNumberEl = $("cardNumber");
+      const cardHolderEl = $("cardHolder");
+      const cardBankEl = $("cardBank");
+      if(cardNumberEl && DATA.paymentCard) cardNumberEl.textContent = DATA.paymentCard.displayNumber || DATA.paymentCard.number || "—";
+      if(cardHolderEl && DATA.paymentCard) cardHolderEl.textContent = DATA.paymentCard.holder || "—";
+      if(cardBankEl && DATA.paymentCard) cardBankEl.textContent = DATA.paymentCard.bank || "—";
+
+      const tbody = $("paymentsBody");
+      tbody.innerHTML = "";
+      (DATA.payments || []).forEach(p => {
+        const tr = document.createElement("tr");
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+        const td3 = document.createElement("td");
+        td1.className = "right";
+        td2.className = "right";
+        td3.className = "left money";
+        td1.textContent = p.stage || "—";
+        td2.textContent = p.note || "—";
+        td3.textContent = formatToman(p.amount || 0);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tbody.appendChild(tr);
+      });
+
+      if(DATA.payments && DATA.payments.length === 0){
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 3;
+        td.className = "right";
+        td.textContent = "پرداختی ثبت نشده است.";
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      }
+    };
+
+    const copyText = async (text) => {
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(_){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        return true;
+      }
+    };
+
+    const toast = (msg) => {
+      const old = document.title;
+      document.title = msg;
+      setTimeout(()=> document.title = old, 1200);
+    };
+
+    const runTests = () => {
+      const total = Number(DATA.plan.total || 0);
+      const paid = (DATA.payments || []).reduce((a,p) => a + Number(p.amount || 0), 0);
+      const due = Math.max(0, total - paid);
+
+      console.assert(!!DATA.plan && typeof DATA.plan === "object", "DATA.plan باید یک آبجکت باشد");
+      console.assert(typeof DATA.plan.total === "number", "DATA.plan.total باید عدد باشد");
+      console.assert(total >= 0, "Total باید مثبت باشد");
+      console.assert(paid >= 0, "Paid باید مثبت باشد");
+      console.assert(due >= 0, "Due باید مثبت باشد");
+
+      console.assert(String(DATA.paymentCard.number || "").replace(/\D/g, "").length === 16, "شماره کارت باید ۱۶ رقم باشد");
+
+      console.assert(total === 8500000, "Total باید ۸,۵۰۰,۰۰۰ باشد");
+      console.assert(paid === 3500000, "Paid باید ۳,۵۰۰,۰۰۰ باشد");
+      console.assert(due === 5000000, "Due باید ۵,۰۰۰,۰۰۰ باشد");
+    };
+
+    const bind = () => {
+      const printBtn = $("printBtn");
+      if(printBtn) printBtn.addEventListener("click", () => window.print());
+
+      const copyJsonBtn = $("copyJsonBtn");
+      if(copyJsonBtn) copyJsonBtn.addEventListener("click", async () => {
+        await copyText(JSON.stringify(DATA, null, 2));
+        toast("JSON Copied");
+      });
+
+      const copyLinkBtn = $("copyLinkBtn");
+      if(copyLinkBtn) copyLinkBtn.addEventListener("click", async () => {
+        await copyText(location.href);
+        toast("Link Copied");
+      });
+
+      const copyCardBtn = $("copyCardBtn");
+      if(copyCardBtn) copyCardBtn.addEventListener("click", async () => {
+        const num = (DATA.paymentCard && DATA.paymentCard.number) ? String(DATA.paymentCard.number) : "";
+        if(!num) return;
+        await copyText(num);
+        toast("شماره کارت کپی شد");
+      });
+    };
+
+    render();
+    bind();
+    runTests();
+  </script>
+</body>
+</html>
