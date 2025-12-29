@@ -49,6 +49,9 @@
       --border: #E6EAF0;
       --primary: #0B3A5B;
       --accent: #1BB3A6;
+      --gradient-primary: linear-gradient(120deg, rgba(11, 58, 91, 0.16), rgba(27, 179, 166, 0.18));
+      --gradient-primary-strong: linear-gradient(120deg, rgba(11, 58, 91, 0.95), rgba(27, 179, 166, 0.9));
+      --gradient-secondary: linear-gradient(120deg, rgba(109, 40, 217, 0.18), rgba(34, 197, 94, 0.18));
       --success: #16A34A;
       --danger: #DC2626;
       --radius-lg: 18px;
@@ -69,6 +72,8 @@
     body {
       margin: 0;
       background: var(--bg);
+      background-image: radial-gradient(800px circle at 20% 0%, rgba(27, 179, 166, 0.08), transparent 60%),
+        radial-gradient(900px circle at 80% 20%, rgba(11, 58, 91, 0.06), transparent 60%);
       color: var(--text-primary);
       font-size: 16px;
       font-weight: 500;
@@ -90,6 +95,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
+      position: relative;
     }
 
     .header-bar {
@@ -99,6 +105,17 @@
       gap: 16px;
       padding: 16px 20px;
       border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .header-bar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: var(--gradient-primary);
     }
 
     .header-main {
@@ -112,6 +129,9 @@
       font-size: clamp(20px, 3.4vw, 26px);
       font-weight: 700;
       margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .status-pill {
@@ -126,6 +146,26 @@
       align-items: center;
       gap: 6px;
       min-height: 32px;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: currentColor;
+    }
+
+    .icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .header-meta {
@@ -212,6 +252,9 @@
     .summary-label {
       font-size: 13px;
       color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .summary-value {
@@ -236,6 +279,44 @@
       flex-direction: column;
       gap: 10px;
       background: rgba(11, 58, 91, 0.04);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(11, 58, 91, 0.08);
+      border-color: rgba(11, 58, 91, 0.14);
+    }
+
+    .summary-strip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: var(--gradient-primary);
+    }
+
+    .summary-badge {
+      position: absolute;
+      top: 6px;
+      left: 12px;
+      background: rgba(11, 58, 91, 0.12);
+      color: var(--primary);
+      border: 1px solid rgba(11, 58, 91, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .summary-blob {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      right: -50px;
+      bottom: -60px;
+      background: radial-gradient(circle, rgba(27, 179, 166, 0.25), transparent 65%);
+      opacity: 0.24;
+      pointer-events: none;
     }
 
     .summary-total .label {
@@ -247,9 +328,9 @@
       font-size: clamp(28px, 4.5vw, 36px);
       font-weight: 800;
       color: var(--primary);
-      direction: ltr;
-      text-align: left;
       letter-spacing: 0.4px;
+      position: relative;
+      z-index: 1;
     }
 
     .summary-sub {
@@ -261,8 +342,6 @@
     }
 
     .summary-sub span {
-      direction: ltr;
-      text-align: left;
       font-weight: 600;
       color: var(--text-primary);
     }
@@ -284,13 +363,8 @@
       gap: 8px;
     }
 
-    .section-title::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: inline-block;
+    .section-title .icon {
+      color: var(--accent);
     }
 
     .financial-list {
@@ -307,12 +381,22 @@
       border-radius: var(--radius-md);
       font-size: 14px;
       background: #fff;
+      gap: 12px;
+    }
+
+    .financial-row .label-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
     }
 
     .financial-row strong {
       font-weight: 700;
       direction: ltr;
+      unicode-bidi: plaintext;
       text-align: left;
+      font-variant-numeric: tabular-nums;
     }
 
     .financial-row.total {
@@ -336,6 +420,7 @@
       border-radius: var(--radius-md);
       overflow: hidden;
       background: #fff;
+      position: relative;
     }
 
     .accordion-header {
@@ -351,12 +436,33 @@
       font-size: 14px;
       font-weight: 600;
       min-height: 44px;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .accordion-header span {
+    .accordion-header .title {
+      color: var(--text-primary);
+    }
+
+    .accordion-header .subtotal {
       color: var(--text-secondary);
       font-size: 12px;
       font-weight: 500;
+    }
+
+    .accordion-header .title-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .accordion-header .pill {
+      background: rgba(11, 58, 91, 0.08);
+      color: var(--primary);
+      border: 1px solid rgba(11, 58, 91, 0.16);
+      border-radius: var(--radius-pill);
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .accordion-icon {
@@ -403,6 +509,8 @@
       direction: ltr;
       text-align: left;
       font-weight: 600;
+      unicode-bidi: plaintext;
+      font-variant-numeric: tabular-nums;
     }
 
     .item-table tr:last-child td {
@@ -417,6 +525,20 @@
       transform: rotate(180deg);
     }
 
+    .accordion-item.open::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+
+    .accordion-item.open .accordion-header {
+      background: rgba(27, 179, 166, 0.05);
+    }
+
     .payment-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -428,21 +550,51 @@
     }
 
     .bank-card {
-      background: #0B3A5B;
+      background: var(--gradient-primary-strong);
       color: #fff;
       border-radius: var(--radius-md);
       padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bank-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 45%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .bank-chip {
+      width: 46px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .bank-watermark {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      opacity: 0.08;
+      text-transform: uppercase;
     }
 
     .bank-card .number {
       font-size: 18px;
       font-weight: 700;
-      direction: ltr;
-      text-align: left;
       letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
     }
 
     .bank-card .row {
@@ -452,6 +604,8 @@
       font-size: 13px;
       opacity: 0.9;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .copy-btn {
@@ -464,6 +618,11 @@
       font-weight: 600;
       min-height: 44px;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
     }
 
     .note-card {
@@ -524,10 +683,35 @@
       transform: translateY(0);
     }
 
+    .ltr-number {
+      direction: ltr;
+      unicode-bidi: plaintext;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .brand-stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+
+    .brand-stamp .mark {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background: var(--gradient-secondary);
+      border: 1px solid rgba(109, 40, 217, 0.12);
+    }
+
     @media (hover: hover) and (pointer: fine) {
       .copy-btn:hover,
       .accordion-header:hover {
         transform: translateY(-1px);
+        background: rgba(11, 58, 91, 0.02);
       }
       .copy-btn:active,
       .accordion-header:active {
@@ -582,19 +766,61 @@
         letter-spacing: 1.6px;
       }
     }
+
+    @media print {
+      body {
+        background: #fff;
+        background-image: none;
+      }
+      .card {
+        box-shadow: none;
+      }
+      .header-bar::before,
+      .summary-strip,
+      .summary-blob,
+      .bank-card::before {
+        display: none !important;
+      }
+      .bank-card {
+        background: #fff;
+        color: var(--primary);
+        border: 1px solid var(--border);
+      }
+      .summary-total {
+        box-shadow: none;
+      }
+      .bank-watermark,
+      .brand-stamp {
+        display: none !important;
+      }
+      .copy-btn {
+        border-color: var(--border);
+        color: var(--primary);
+      }
+    }
   </style>
 </head>
 <body>
   <main class="page">
     <section class="card header-bar">
       <div class="header-main">
-        <h1 class="header-title" id="pageTitle">فاکتور نهایی</h1>
+        <h1 class="header-title">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path>
+              <path d="M14 3v5h5"></path>
+              <path d="M9 13h6"></path>
+              <path d="M9 17h6"></path>
+            </svg>
+          </span>
+          <span id="pageTitle">فاکتور نهایی</span>
+        </h1>
         <span class="status-pill" id="statusPill">Final</span>
       </div>
       <div class="header-meta">
         <div class="meta-block ltr">
           <span>Invoice #</span>
-          <strong id="invoiceNumber">—</strong>
+          <strong class="ltr-number" id="invoiceNumber">—</strong>
         </div>
         <div class="meta-block">
           <span>تاریخ صدور</span>
@@ -613,41 +839,91 @@
     <section class="card summary-card">
       <div class="summary-left">
         <div>
-          <div class="summary-label">کارفرما</div>
+          <div class="summary-label">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M20 21a8 8 0 0 0-16 0"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </span>
+            کارفرما
+          </div>
           <div class="summary-value" id="clientName">—</div>
         </div>
         <div>
-          <div class="summary-label">پروژه</div>
+          <div class="summary-label">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"></path>
+                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </span>
+            پروژه
+          </div>
           <div class="summary-value" id="projectName">—</div>
         </div>
         <div class="summary-meta" id="contractRef">—</div>
       </div>
       <div class="summary-total">
+        <div class="summary-strip"></div>
+        <div class="summary-badge" id="summaryBadge">Final</div>
+        <div class="summary-blob" aria-hidden="true"></div>
         <div class="label">مبلغ نهایی قابل پرداخت</div>
-        <div class="amount" id="totalAmount">—</div>
+        <div class="amount ltr-number" id="totalAmount">—</div>
         <div class="summary-sub">
-          <div>پرداختی‌ها <span id="paidAmount">—</span></div>
-          <div>مانده <span id="dueAmount">—</span></div>
+          <div>پرداختی‌ها <span class="ltr-number" id="paidAmount">—</span></div>
+          <div>مانده <span class="ltr-number" id="dueAmount">—</span></div>
         </div>
       </div>
     </section>
 
     <div class="grid">
       <section class="card" style="padding: 18px;">
-        <h2 class="section-title">خلاصه مالی</h2>
+        <h2 class="section-title">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+              <path d="M9 7h6"></path>
+              <path d="M9 11h6"></path>
+              <path d="M9 15h2"></path>
+            </svg>
+          </span>
+          خلاصه مالی
+        </h2>
         <div class="financial-list" id="financialList"></div>
       </section>
 
       <section class="card" style="padding: 18px;">
-        <h2 class="section-title">اطلاعات پرداخت</h2>
+        <h2 class="section-title">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+              <path d="M3 10h18"></path>
+              <path d="M7 15h4"></path>
+            </svg>
+          </span>
+          اطلاعات پرداخت
+        </h2>
         <div class="payment-card">
           <div class="bank-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+            <div class="bank-watermark">PASARGAD</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; position:relative; z-index:1;">
               <div>
                 <div style="font-size:12px; opacity:.8;">شماره کارت</div>
-                <div class="number" id="cardNumber">—</div>
+                <div class="number ltr-number" id="cardNumber">—</div>
               </div>
-              <button class="copy-btn" id="copyCardBtn" type="button">کپی شماره کارت</button>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="bank-chip" aria-hidden="true"></div>
+                <button class="copy-btn" id="copyCardBtn" type="button">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="10" height="12" rx="2"></rect>
+                      <rect x="5" y="3" width="10" height="12" rx="2"></rect>
+                    </svg>
+                  </span>
+                  کپی
+                </button>
+              </div>
             </div>
             <div class="row">
               <div>دارنده: <strong id="cardHolder">—</strong></div>
@@ -660,12 +936,31 @@
     </div>
 
     <section class="card" style="padding: 18px;">
-      <h2 class="section-title">ریز خدمات</h2>
+      <h2 class="section-title">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="8" height="8" rx="2"></rect>
+            <rect x="13" y="4" width="8" height="8" rx="2"></rect>
+            <rect x="3" y="14" width="8" height="8" rx="2"></rect>
+            <rect x="13" y="14" width="8" height="8" rx="2"></rect>
+          </svg>
+        </span>
+        ریز خدمات
+      </h2>
       <div class="accordion" id="servicesAccordion"></div>
     </section>
 
     <section class="card note-card">
-      <h2 class="section-title" style="margin-bottom: 8px;">یادداشت</h2>
+      <h2 class="section-title" style="margin-bottom: 8px;">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h10"></path>
+          </svg>
+        </span>
+        یادداشت
+      </h2>
       <p id="notesText" style="margin:0;"></p>
     </section>
 
@@ -673,6 +968,10 @@
       <div>
         <strong id="footerName">—</strong>
         <div>Armin Invoice Template</div>
+        <div class="brand-stamp">
+          <span class="mark" aria-hidden="true"></span>
+          Designed by Armin Babaei
+        </div>
       </div>
       <div class="links" id="footerLinks"></div>
     </footer>
@@ -758,6 +1057,19 @@
       notes: "نواپراپ از برندهای حرفه‌ای و خوش‌نامی است که همکاری بلندمدت با آن برای ما ارزشمند بوده است. تخفیف این فاکتور به پاس قدردانی از اعتماد، حجم سفارش‌ها و همکاری مستمر در نظر گرفته شده است. از همراهی و تعامل حرفه‌ای شما صمیمانه سپاسگزاریم."
     };
 
+    const ICONS = {
+      invoice: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h6"></path></svg>`,
+      user: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
+      briefcase: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"></path><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>`,
+      calculator: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 7h6"></path><path d="M9 11h6"></path><path d="M9 15h2"></path></svg>`,
+      tag: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10v6l-6 6-10-10V6h6l10 4Z"></path><circle cx="7.5" cy="8.5" r="1.5"></circle></svg>`,
+      credit: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path><path d="M7 15h4"></path></svg>`,
+      copy: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="10" height="12" rx="2"></rect><rect x="5" y="3" width="10" height="12" rx="2"></rect></svg>`,
+      layers: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path><path d="M3 16l9 5 9-5"></path></svg>`,
+      image: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 4-4 4 4 5-5 5 5"></path></svg>`,
+      text: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg>`
+    };
+
     const $ = (id) => document.getElementById(id);
 
     const safeText = (el, value) => {
@@ -771,17 +1083,18 @@
       container.innerHTML = "";
       const discountValue = DATA.financial?.discount ? `-${DATA.financial.discount}` : null;
       const rows = [
-        { label: "جمع خدمات", value: DATA.financial?.subtotal },
-        { label: "تخفیف همکاری", value: discountValue, className: "discount" },
-        { label: "مبلغ نهایی", value: DATA.financial?.total, className: "total" },
-        { label: "پرداختی", value: DATA.financial?.paid },
-        { label: "مانده قابل پرداخت", value: DATA.financial?.due }
+        { label: "جمع خدمات", value: DATA.financial?.subtotal, icon: ICONS.calculator },
+        { label: "تخفیف همکاری", value: discountValue, className: "discount", icon: ICONS.tag },
+        { label: "مبلغ نهایی", value: DATA.financial?.total, className: "total", icon: ICONS.invoice },
+        { label: "پرداختی", value: DATA.financial?.paid, icon: ICONS.credit },
+        { label: "مانده قابل پرداخت", value: DATA.financial?.due, icon: ICONS.credit }
       ];
       rows.forEach((row) => {
         const div = document.createElement("div");
         div.className = `financial-row ${row.className || ""}`.trim();
         const label = document.createElement("span");
-        label.textContent = row.label;
+        label.className = "label-wrap";
+        label.innerHTML = `<span class="icon">${row.icon || ""}</span>${row.label}`;
         const value = document.createElement("strong");
         value.textContent = row.value || "—";
         div.append(label, value);
@@ -793,6 +1106,7 @@
       const container = $("servicesAccordion");
       if (!container) return;
       container.innerHTML = "";
+      const icons = [ICONS.image, ICONS.layers, ICONS.text, ICONS.layers];
       (DATA.services || []).forEach((section, index) => {
         const item = document.createElement("div");
         item.className = "accordion-item";
@@ -803,7 +1117,17 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = "accordion-header";
-        button.innerHTML = `<div>${section.title || ""} <span>${section.subtotal || ""}</span></div><div class="accordion-icon">⌄</div>`;
+        const count = (section.items || []).length;
+        const icon = icons[index] || ICONS.layers;
+        button.innerHTML = `
+          <div class="title-wrap">
+            <span class="icon">${icon}</span>
+            <span class="title">${section.title || ""}</span>
+            <span class="pill">${count} مورد</span>
+            <span class="subtotal">${section.subtotal || ""}</span>
+          </div>
+          <div class="accordion-icon">⌄</div>
+        `;
 
         const content = document.createElement("div");
         content.className = "accordion-content";
@@ -856,6 +1180,7 @@
     const render = () => {
       safeText($("pageTitle"), DATA.invoice?.title || "فاکتور نهایی");
       safeText($("statusPill"), DATA.invoice?.status || "—");
+      safeText($("summaryBadge"), DATA.invoice?.status || "—");
       safeText($("invoiceNumber"), DATA.invoice?.number || "—");
       safeText($("issueDate"), DATA.invoice?.issueDate || "—");
 
@@ -929,7 +1254,7 @@
         document.execCommand("copy");
         textarea.remove();
       }
-      showToast("کپی شد ✓");
+      showToast("شماره کارت کپی شد ✓");
     };
 
     const bindEvents = () => {
