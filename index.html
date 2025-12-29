@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Invoice • Armin Babaei</title>
+  <title>فاکتور نهایی • Armin Babaei</title>
   <style>
     @font-face {
       font-family: 'IRANSansX';
@@ -41,549 +41,643 @@
       font-display: swap;
     }
 
-    :root{
-      --ink:#0f2233;
-      --muted:#5b7487;
-      --bg:#e9f0f3;
-      --card:#ffffff;
-      --line:rgba(15,34,51,.10);
-      --shadow:0 18px 40px rgba(12, 34, 52, .12);
-
-      --blue:#0d4f73;
-      --blue2:#0e6a92;
-      --cyan:#8fb8c8;
-      --ice:#dfeef4;
-
-      --r-xl:28px;
-      --r-lg:22px;
-      --r-md:16px;
-
-      --max:1120px;
+    :root {
+      --bg: #F6F8FB;
+      --surface: #FFFFFF;
+      --text-primary: #0B1220;
+      --text-secondary: #5B6475;
+      --border: #E6EAF0;
+      --primary: #0B3A5B;
+      --accent: #1BB3A6;
+      --success: #16A34A;
+      --danger: #DC2626;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+      --max-width: 1160px;
     }
 
-    *{box-sizing:border-box}
+    * { box-sizing: border-box; }
     html, body, button, input, textarea, select {
+      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: geometricPrecision;
-      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial !important;
     }
-    body{ font-weight: 500; }
-    h1, h2, h3{ font-weight: 800; }
-    b, strong{ font-weight: 700; }
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-      color:var(--ink);
-      overflow-x:hidden;
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(14,106,146,.16), transparent 60%),
-        radial-gradient(900px 520px at 85% 0%, rgba(143,184,200,.28), transparent 55%),
-        linear-gradient(180deg, var(--bg), #f7fbfd 65%);
-    }
-    .topo{display:none !important;}
-
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px calc(70px + env(safe-area-inset-bottom));}
-
-    .toolbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(247,251,253,.74);
-      backdrop-filter: blur(10px);
-      border:1px solid var(--line);
-      border-radius:999px;
-      box-shadow: 0 10px 26px rgba(12,34,52,.08);
-      padding:10px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 500;
+      overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .chip{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.65));
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
-    .avatar{
-      width:36px;
-      height:36px;
-      border-radius:999px;
-      overflow:hidden;
-      background:linear-gradient(135deg, var(--blue), var(--cyan));
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-weight:800;
-      letter-spacing:.2px;
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
     }
 
-    .chip b{font-size:13px}
-    .chip span{font-size:12px; color:var(--muted)}
-
-    .btns{display:flex; gap:10px; flex-wrap:wrap}
-
-    .btn{
-      min-height:44px;
-      min-width:44px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      border:none;
-      border-radius:999px;
-      padding:10px 12px;
-      font-weight:750;
-      font-size:13px;
-      color:#fff;
-      background:linear-gradient(135deg, var(--blue), var(--blue2));
-      box-shadow:0 12px 22px rgba(13,79,115,.18);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .btn.secondary{
-      color:var(--ink);
-      background:rgba(255,255,255,.8);
-      border:1px solid var(--line);
-      box-shadow:0 8px 16px rgba(12,34,52,.08);
-    }
-    .btn:active{
-      transform:translateY(1px);
-      box-shadow:0 8px 16px rgba(13,79,115,.16);
-    }
-    .btn.secondary:active{
-      box-shadow:0 6px 12px rgba(12,34,52,.08);
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
     }
 
-    .grid{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:16px;
-      align-items:start;
+    .header-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--r-xl);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      transition:transform .2s ease, box-shadow .2s ease;
+    .header-title {
+      font-size: clamp(20px, 3.4vw, 26px);
+      font-weight: 700;
+      margin: 0;
     }
 
-    .card .pad{padding:22px;}
-
-    .hero{
-      background:
-        radial-gradient(700px 280px at 30% 20%, rgba(14,106,146,.14), transparent 55%),
-        radial-gradient(760px 260px at 85% 55%, rgba(143,184,200,.24), transparent 60%),
-        linear-gradient(180deg, rgba(223,238,244,.75), rgba(255,255,255,.95));
+    .status-pill {
+      background: rgba(27, 179, 166, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(27, 179, 166, 0.24);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 32px;
     }
 
-    .heroTop{display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap}
-
-    .title{
-      margin:0;
-      font-size:clamp(20px, 4.5vw, 28px);
-      letter-spacing:-.2px;
-      color:var(--ink);
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      text-align: left;
     }
 
-    .sub{
-      margin:8px 0 0;
-      color:var(--muted);
-      line-height:1.75;
-      font-size:clamp(12.5px, 2.6vw, 13.5px);
+    .meta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .meta-block strong {
+      font-size: 14px;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .meta-block.ltr {
+      text-align: left;
+      direction: ltr;
+    }
+    .meta-block.ltr strong {
+      direction: ltr;
+      text-align: left;
     }
 
-    .metaGrid{
-      margin-top:16px;
-      display:grid;
+    .identity-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: #fff;
+      min-height: 44px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-pill);
+      background: rgba(11, 58, 91, 0.12);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .identity-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .identity-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .summary-card {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      padding: 22px;
+      align-items: center;
+    }
+
+    .summary-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .summary-value {
+      font-size: clamp(18px, 3.2vw, 22px);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .summary-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .summary-total {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(11, 58, 91, 0.04);
+    }
+
+    .summary-total .label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .summary-total .amount {
+      font-size: clamp(28px, 4.5vw, 36px);
+      font-weight: 800;
+      color: var(--primary);
+      direction: ltr;
+      text-align: left;
+      letter-spacing: 0.4px;
+    }
+
+    .summary-sub {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-secondary);
+      gap: 10px;
+    }
+
+    .summary-sub span {
+      direction: ltr;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .grid {
+      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
+      gap: 18px;
+      align-items: start;
     }
 
-    .meta{
-      border:1px solid var(--line);
-      border-radius:var(--r-lg);
-      padding:12px 14px;
-      background:rgba(255,255,255,.9);
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .meta .k{color:var(--muted); font-size:12px; margin-bottom:6px}
-    .meta .v{font-weight:800; font-size:clamp(12.5px, 2.8vw, 13.5px); line-height:1.5}
-
-    .sectionTitle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:0 0 12px;
+    .section-title::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
     }
 
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--blue), var(--cyan));
-      box-shadow:0 0 0 6px rgba(14,106,146,.10);
-      flex:0 0 auto;
+    .financial-list {
+      display: grid;
+      gap: 10px;
     }
 
-    .sectionTitle h2{margin:0; font-size:16px}
-
-    .list{margin:0; padding:0; list-style:none; display:grid; gap:10px}
-    .list li{
-      border:1px solid var(--line);
-      border-radius:var(--r-lg);
-      padding:12px 14px;
-      background:rgba(247,251,253,.7);
-      line-height:1.8;
-      font-size:clamp(12.5px, 2.7vw, 13.3px);
-      color:rgba(15,34,51,.92);
-      overflow-wrap:anywhere;
+    .financial-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      background: #fff;
     }
 
-    .table{
-      width:100%;
-      table-layout:fixed;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:var(--r-xl);
-      background:#fff;
+    .financial-row strong {
+      font-weight: 700;
+      direction: ltr;
+      text-align: left;
     }
 
-    .table th, .table td{
-      padding:12px 14px;
-      font-size:clamp(12px, 2.6vw, 13px);
-      border-bottom:1px solid var(--line);
-      word-break:break-word;
+    .financial-row.total {
+      background: rgba(11, 58, 91, 0.06);
+      border-color: rgba(11, 58, 91, 0.18);
+      font-weight: 700;
     }
 
-    .table th{
-      text-align:right;
-      color:var(--muted);
-      font-weight:800;
-      background:linear-gradient(180deg, rgba(223,238,244,.8), rgba(255,255,255,.95));
+    .financial-row.discount strong {
+      color: var(--success);
     }
 
-    .table tr:last-child td{border-bottom:none}
-
-    .right{ text-align:right }
-    .left{ text-align:left }
-
-    .money{font-weight:800}
-
-    .summary{
-      display:grid;
-      gap:10px;
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .sumRow{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      border:1px solid var(--line);
-      border-radius:var(--r-lg);
-      padding:12px 14px;
-      background:rgba(247,251,253,.7);
-      font-size:clamp(12.5px, 2.6vw, 13.2px);
+    .accordion-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #fff;
     }
 
-    .sumRow b{font-weight:900}
-
-    .sumRow.total{
-      background:linear-gradient(135deg, rgba(13,79,115,.08), rgba(143,184,200,.18));
-      border-color:rgba(13,79,115,.18);
+    .accordion-header {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 44px;
     }
 
-    .note{
-      border:1px dashed rgba(15,34,51,.22);
-      border-radius:var(--r-xl);
-      padding:14px 16px;
-      background:rgba(255,255,255,.85);
-      color:rgba(15,34,51,.9);
-      line-height:1.85;
-      font-size:clamp(12.5px, 2.6vw, 13px);
+    .accordion-header span {
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
     }
 
-    .footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:14px 16px;
-      border-top:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(223,238,244,.55), rgba(255,255,255,.95));
+    .accordion-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      transition: transform 0.2s ease;
     }
 
-    .contact{
-      display:grid;
-      gap:8px;
-      color:rgba(15,34,51,.92);
-      font-size:13px;
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
     }
 
-    .cRow{display:flex; gap:10px; align-items:center}
-    .ico{
-      width:30px;
-      height:30px;
-      border-radius:12px;
-      background:rgba(14,106,146,.10);
-      border:1px solid rgba(14,106,146,.18);
-      display:grid;
-      place-items:center;
-      color:var(--blue);
-      font-weight:900;
-      flex:0 0 auto;
+    .accordion-body {
+      padding: 0 16px 14px;
     }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.85);
-      color:var(--muted);
-      font-size:12px;
-      font-weight:800;
+    .item-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
     }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(13,79,115,.08);
-      border:1px solid rgba(13,79,115,.14);
-      color:rgba(15,34,51,.88);
-      font-size:12px;
-      font-weight:800;
+    .item-table th,
+    .item-table td {
+      text-align: right;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .split{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-
-    .small{font-size:clamp(11.5px, 2.4vw, 12px); color:var(--muted); line-height:1.7}
-
-    .toast{
-      position:fixed;
-      right:24px;
-      bottom:calc(24px + env(safe-area-inset-bottom));
-      z-index:120;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(12,34,52,.12);
-      background:rgba(255,255,255,.92);
-      color:var(--ink);
-      font-size:12px;
-      font-weight:700;
-      box-shadow:0 12px 26px rgba(12,34,52,.14);
-      opacity:0;
-      transform:translateY(6px) scale(.98);
-      transition:opacity .2s ease, transform .2s ease;
-      pointer-events:none;
-    }
-    .toast.show{
-      opacity:1;
-      transform:translateY(0) scale(1);
+    .item-table th {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 12px;
     }
 
-    #cardNumber{
-      overflow-wrap:anywhere;
+    .item-table td.amount {
+      direction: ltr;
+      text-align: left;
+      font-weight: 600;
     }
 
-    @media (hover:hover) and (pointer:fine){
-      .btn:hover{
-        transform:translateY(-1px);
-        box-shadow:0 14px 24px rgba(13,79,115,.2);
+    .item-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .accordion-item.open .accordion-content {
+      max-height: 500px;
+    }
+
+    .accordion-item.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .payment-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bank-card {
+      background: #0B3A5B;
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bank-card .number {
+      font-size: 18px;
+      font-weight: 700;
+      direction: ltr;
+      text-align: left;
+      letter-spacing: 2px;
+    }
+
+    .bank-card .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      opacity: 0.9;
+      flex-wrap: wrap;
+    }
+
+    .copy-btn {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    .note-card {
+      padding: 18px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 16px;
+    }
+
+    .footer strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      right: 24px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      color: var(--text-primary);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .copy-btn:hover,
+      .accordion-header:hover {
+        transform: translateY(-1px);
       }
-      .btn.secondary:hover{
-        box-shadow:0 10px 18px rgba(12,34,52,.1);
-      }
-      .card:hover{
-        transform:translateY(-2px);
-        box-shadow:0 22px 46px rgba(12,34,52,.14);
+      .copy-btn:active,
+      .accordion-header:active {
+        transform: translateY(0);
       }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{
-        animation:none !important;
-        transition:none !important;
-        scroll-behavior:auto !important;
-      }
-      .btn,
-      .card,
-      .toast{
-        transform:none !important;
-        box-shadow:none !important;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
       }
     }
 
-    @media (max-width: 640px){
-      .wrap{padding:20px 12px calc(64px + env(safe-area-inset-bottom));}
-      .toolbar{padding:8px; gap:8px;}
-      .btns{width:100%;}
-      .btn{flex:1 1 140px; padding:12px 14px;}
-      .chip{width:100%; justify-content:space-between;}
-      .card .pad{padding:18px;}
-      #cardNumber{font-size:clamp(14px, 4vw, 18px); letter-spacing:1px; overflow-wrap:anywhere;}
+    @media (max-width: 900px) {
+      .summary-card {
+        grid-template-columns: 1fr;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-meta {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
 
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-      .metaGrid{grid-template-columns:1fr}
-    }
-
-    @media print{
-      .toolbar{display:none !important}
-      body{background:#fff !important}
-      .card{box-shadow:none !important}
-      .topo{display:none !important}
+    @media (max-width: 600px) {
+      .page {
+        padding: 16px 12px 56px;
+      }
+      .header-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .identity-chip {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .toast {
+        right: 16px;
+        left: 16px;
+        text-align: center;
+      }
+      .bank-card .number {
+        font-size: 16px;
+        letter-spacing: 1.6px;
+      }
     }
   </style>
 </head>
 <body>
-    <div class="wrap">
-    <div class="toolbar">
-      <div class="chip">
-        <div class="avatar" id="avatar">AB</div>
-        <div style="display:flex; flex-direction:column; line-height:1.1;">
-          <b id="designerName">Armin Babaei</b>
-          <span id="designerRole">Graphic Designer</span>
+  <main class="page">
+    <section class="card header-bar">
+      <div class="header-main">
+        <h1 class="header-title" id="pageTitle">فاکتور نهایی</h1>
+        <span class="status-pill" id="statusPill">Final</span>
+      </div>
+      <div class="header-meta">
+        <div class="meta-block ltr">
+          <span>Invoice #</span>
+          <strong id="invoiceNumber">—</strong>
+        </div>
+        <div class="meta-block">
+          <span>تاریخ صدور</span>
+          <strong id="issueDate">—</strong>
+        </div>
+        <div class="identity-chip">
+          <div class="avatar" id="avatar">AB</div>
+          <div class="identity-text">
+            <strong id="designerName">Armin Babaei</strong>
+            <span id="designerRole">Graphic Designer</span>
+          </div>
         </div>
       </div>
-      <div class="btns">
-        <button class="btn secondary" id="copyLinkBtn" type="button">کپی لینک</button>
-        <button class="btn secondary" id="copyJsonBtn" type="button">کپی اطلاعات</button>
-        <button class="btn" id="printBtn" type="button">پرینت / PDF</button>
+    </section>
+
+    <section class="card summary-card">
+      <div class="summary-left">
+        <div>
+          <div class="summary-label">کارفرما</div>
+          <div class="summary-value" id="clientName">—</div>
+        </div>
+        <div>
+          <div class="summary-label">پروژه</div>
+          <div class="summary-value" id="projectName">—</div>
+        </div>
+        <div class="summary-meta" id="contractRef">—</div>
       </div>
-    </div>
-
-  <div class="grid">
-      <section class="card hero">
-        <div class="pad">
-          <div class="heroTop">
-            <div>
-              <h1 class="title" id="pageTitle">فاکتور نهایی پروژه</h1>
-              <p class="sub" id="pageSubtitle">این سند، خلاصهٔ خدمات ارائه‌شده و وضعیت مالی پروژه را به‌صورت شفاف نمایش می‌دهد.</p>
-            </div>
-            <div class="split">
-              <span class="pill" id="invoiceNo">Invoice #—</span>
-              <span class="badge" id="statusPill">Final</span>
-            </div>
-          </div>
-
-          <div class="metaGrid" style="margin-top:14px;">
-            <div class="meta">
-              <div class="k">کارفرما</div>
-              <div class="v" id="clientName">—</div>
-              <div class="small" id="clientMeta">—</div>
-            </div>
-            <div class="meta">
-              <div class="k">پروژه</div>
-              <div class="v" id="projectName">—</div>
-              <div class="small" id="projectMeta">—</div>
-            </div>
-            <div class="meta">
-              <div class="k">تاریخ قرارداد</div>
-              <div class="v" id="contractDate">—</div>
-              <div class="small" id="contractRef">—</div>
-            </div>
-            <div class="meta">
-              <div class="k">پلن خدمات</div>
-              <div class="v" id="planName">—</div>
-              <div class="small" id="planRange">—</div>
-            </div>
-          </div>
-
-          <div style="margin-top:16px;" class="note" id="introNote"></div>
+      <div class="summary-total">
+        <div class="label">مبلغ نهایی قابل پرداخت</div>
+        <div class="amount" id="totalAmount">—</div>
+        <div class="summary-sub">
+          <div>پرداختی‌ها <span id="paidAmount">—</span></div>
+          <div>مانده <span id="dueAmount">—</span></div>
         </div>
+      </div>
+    </section>
 
-        <div class="footer">
-          <div class="contact">
-            <div class="cRow"><span class="ico">☎</span><span id="phone">—</span></div>
-            <div class="cRow"><span class="ico">✉</span><span id="email">—</span></div>
-            <div class="cRow"><span class="ico">⌁</span><span id="instagram">—</span></div>
-          </div>
-          <div style="text-align:left">
-            <div class="small">طراح</div>
-            <div style="font-weight:900" id="signatureName">—</div>
-            <div class="small" id="signatureDate">—</div>
-          </div>
-        </div>
+    <div class="grid">
+      <section class="card" style="padding: 18px;">
+        <h2 class="section-title">خلاصه مالی</h2>
+        <div class="financial-list" id="financialList"></div>
       </section>
 
-      <aside class="card">
-        <div class="pad">
-          <div class="sectionTitle"><span class="dot"></span><h2>خدمات و خروجی‌ها</h2></div>
-          <ul class="list" id="servicesList"></ul>
-
-          <div style="height:14px"></div>
-          <div class="sectionTitle"><span class="dot"></span><h2>خلاصه مالی</h2></div>
-          <div class="summary">
-            <div class="sumRow"><span>مبلغ قرارداد</span><b class="money" id="totalAmount">—</b></div>
-            <div class="sumRow"><span>جمع پرداخت‌ها</span><b class="money" id="paidAmount">—</b></div>
-            <div class="sumRow total"><span>مانده قابل پرداخت</span><b class="money" id="dueAmount">—</b></div>
-          </div>
-
-          <div style="height:14px"></div>
-          <div class="sectionTitle"><span class="dot"></span><h2>اطلاعات پرداخت</h2></div>
-          <div style="border:1px solid var(--line); border-radius:var(--r-xl); background:rgba(247,251,253,.55); padding:14px;">
-            <div style="border-radius:20px; padding:18px; background:linear-gradient(135deg, var(--blue), var(--blue2)); color:#fff;">
-              <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-                <div>
-                  <div style="font-size:12px; opacity:.9">شماره کارت</div>
-                  <div id="cardNumber" style="font-size:18px; letter-spacing:2px; font-weight:800; margin:6px 0 0">—</div>
-                </div>
-                <button class="btn secondary" id="copyCardBtn" type="button" style="border-color:rgba(255,255,255,.25); background:rgba(255,255,255,.18); color:#fff;">کپی</button>
+      <section class="card" style="padding: 18px;">
+        <h2 class="section-title">اطلاعات پرداخت</h2>
+        <div class="payment-card">
+          <div class="bank-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+              <div>
+                <div style="font-size:12px; opacity:.8;">شماره کارت</div>
+                <div class="number" id="cardNumber">—</div>
               </div>
-              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:12px;">
-                <div>
-                  <div style="font-size:12px; opacity:.9">نام دارنده</div>
-                  <div id="cardHolder" style="font-weight:700">—</div>
-                </div>
-                <div>
-                  <div style="font-size:12px; opacity:.9">بانک</div>
-                  <div id="cardBank" style="font-weight:700">—</div>
-                </div>
-              </div>
+              <button class="copy-btn" id="copyCardBtn" type="button">کپی شماره کارت</button>
             </div>
-            <div class="small" style="margin-top:10px;">لطفاً پس از انجام واریز، رسید پرداخت را ارسال فرمایید.</div>
+            <div class="row">
+              <div>دارنده: <strong id="cardHolder">—</strong></div>
+              <div>بانک: <strong id="cardBank">—</strong></div>
+            </div>
           </div>
-
-          <div style="height:14px"></div>
-          <div class="sectionTitle"><span class="dot"></span><h2>ریز پرداخت‌ها</h2></div>
-          <table class="table" aria-label="Payments">
-            <thead>
-              <tr>
-                <th class="right">مرحله</th>
-                <th class="right">توضیح</th>
-                <th class="left">مبلغ</th>
-              </tr>
-            </thead>
-            <tbody id="paymentsBody"></tbody>
-          </table>
-
-          <div style="height:14px"></div>
-          <div class="note" id="thankYou"></div>
+          <div style="font-size:12px; color:var(--text-secondary);">برای پرداخت سریع، از شماره کارت فوق استفاده نمایید.</div>
         </div>
-      </aside>
+      </section>
     </div>
-  </div>
+
+    <section class="card" style="padding: 18px;">
+      <h2 class="section-title">ریز خدمات</h2>
+      <div class="accordion" id="servicesAccordion"></div>
+    </section>
+
+    <section class="card note-card">
+      <h2 class="section-title" style="margin-bottom: 8px;">یادداشت</h2>
+      <p id="notesText" style="margin:0;"></p>
+    </section>
+
+    <footer class="card footer">
+      <div>
+        <strong id="footerName">—</strong>
+        <div>Armin Invoice Template</div>
+      </div>
+      <div class="links" id="footerLinks"></div>
+    </footer>
+  </main>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -598,222 +692,259 @@
       invoice: {
         number: "CB-1404-001",
         status: "Final",
-        title: "فاکتور نهایی پروژه طراحی لوگو",
-        subtitle: "این سند، خلاصهٔ خدمات ارائه‌شده و وضعیت مالی پروژه را به‌صورت شفاف نمایش می‌دهد.",
-        issueDate: "امروز",
-        contractDate: "۱۴۰۴/۰۸/۱۸",
-        contractRef: "مطابق قرارداد همکاری طراحی و تبلیغات"
+        title: "فاکتور نهایی خدمات طراحی",
+        issueDate: "۸ دی ۱۴۰۳"
       },
       client: {
-        name: "CloudiBash (جناب آقای سجاد محمدبیگی سلخوری)",
-        meta: "کارفرما / نماینده برند"
+        name: "نواپراپ"
       },
       project: {
-        name: "Logo Mark Design — CloudiBash",
-        meta: "Symbol Only • Cloud + Bash / Terminal"
+        name: "خدمات طراحی گرافیک (بنر / سرتیفیکیت / هدینگ وب‌سایت)",
+        contractRef: "شماره قرارداد: NV-1403-22"
       },
-      plan: {
-        name: "پلن حرفه‌ای طراحی لوگو",
-        range: "بازه پلن: ۵,۰۰۰,۰۰۰ تا ۱۰,۰۰۰,۰۰۰ تومان",
-        total: 8500000
-      },
-      paymentCard: {
-        holder: "آرمین بابایی لیف شاگرد",
-        number: "5022291520370980",
-        displayNumber: "5022 2915 2037 0980",
-        bank: "بانک پاسارگاد"
+      financial: {
+        subtotal: "۱۱,۰۰۰,۰۰۰ تومان",
+        discount: "۱,۰۰۰,۰۰۰ تومان",
+        total: "۱۰,۰۰۰,۰۰۰ تومان",
+        paid: "۰ تومان",
+        due: "۱۰,۰۰۰,۰۰۰ تومان"
       },
       services: [
-        "طراحی لوگومارک به‌صورت Symbol Only (بدون تایپوگرافی نام برند)",
-        "طراحی مینیمال، مدرن و مهندسی‌شده با ضخامت یکنواخت و گوشه‌های نرم",
-        "ترکیب مفهومی Cloud Infrastructure با نشانه‌های Bash ( > و - ) به‌صورت فرم گرافیکی",
-        "ارائه نسخه‌های Primary / Monochrome / Invert",
-        "بهینه‌سازی برای وب‌سایت، داشبورد، CLI، آیکن اپ و فاوآیکن",
-        "تحویل خروجی‌های نهایی تصویری (PNG / JPG)"
+        {
+          title: "طراحی بنرها",
+          subtotal: "۷,۰۰۰,۰۰۰ تومان",
+          items: [
+            { title: "بنر کمپین زمستانه", qty: "۱", unit: "۱,۰۰۰,۰۰۰ تومان", total: "۱,۰۰۰,۰۰۰ تومان" },
+            { title: "بنر تبلیغ محصول", qty: "۲", unit: "۸۰۰,۰۰۰ تومان", total: "۱,۶۰۰,۰۰۰ تومان" },
+            { title: "بنر اینستاگرام", qty: "۲", unit: "۷۰۰,۰۰۰ تومان", total: "۱,۴۰۰,۰۰۰ تومان" },
+            { title: "بنر وب‌سایت", qty: "۱", unit: "۹۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
+            { title: "بنر ایونت", qty: "۱", unit: "۸۰۰,۰۰۰ تومان", total: "۸۰۰,۰۰۰ تومان" },
+            { title: "بنر تخفیف ویژه", qty: "۱", unit: "۶۰۰,۰۰۰ تومان", total: "۶۰۰,۰۰۰ تومان" },
+            { title: "بنر خبرنامه", qty: "۱", unit: "۷۰۰,۰۰۰ تومان", total: "۷۰۰,۰۰۰ تومان" }
+          ]
+        },
+        {
+          title: "طراحی سرتیفیکیت‌ها",
+          subtotal: "۲,۵۰۰,۰۰۰ تومان",
+          items: [
+            { title: "سرتیفیکیت طلایی", qty: "۱", unit: "۱,۲۰۰,۰۰۰ تومان", total: "۱,۲۰۰,۰۰۰ تومان" },
+            { title: "سرتیفیکیت نقره‌ای", qty: "۱", unit: "۹۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
+            { title: "خدمات تکمیلی", qty: "۱", unit: "۴۰۰,۰۰۰ تومان", total: "۴۰۰,۰۰۰ تومان" }
+          ]
+        },
+        {
+          title: "هدینگ‌های وب‌سایت",
+          subtotal: "۱,۵۰۰,۰۰۰ تومان",
+          items: [
+            { title: "هدینگ صفحه اصلی", qty: "۳", unit: "۳۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
+            { title: "هدینگ صفحات داخلی", qty: "۲", unit: "۳۰۰,۰۰۰ تومان", total: "۶۰۰,۰۰۰ تومان" }
+          ]
+        },
+        {
+          title: "مانده قبلی",
+          subtotal: "۱,۰۰۰,۰۰۰ تومان",
+          note: "این مورد در تخفیف همکاری لحاظ شده است.",
+          items: [
+            { title: "مانده قبلی قرارداد", qty: "۱", unit: "۱,۰۰۰,۰۰۰ تومان", total: "۱,۰۰۰,۰۰۰ تومان" }
+          ]
+        }
       ],
-      payments: [
-        { stage: "مرحله ۱", note: "پرداخت اولیه", amount: 1500000 },
-        { stage: "مرحله ۲", note: "پرداخت مرحله دوم", amount: 2000000 }
-      ],
-      texts: {
-        intro: "این فاکتور بابت طراحی لوگومارک اختصاصی برند CloudiBash صادر شده و مطابق قرارداد منعقدشده بین طرفین می‌باشد. خدمات ارائه‌شده طبق پلن حرفه‌ای انجام شده و پروژه در وضعیت نهایی (Final) قرار دارد.",
-        thanks: "از همکاری ارزشمند، اعتماد و صبوری شما در طول اجرای پروژه صمیمانه سپاسگزارم. بازخوردهای دقیق و تعامل حرفه‌ای شما نقش مهمی در رسیدن به نتیجه نهایی داشت. پس از تسویه مبلغ باقی‌مانده، فایل‌های نهایی به‌صورت کامل تحویل خواهد شد."
-      }
+      paymentCard: {
+        holder: "آرمین بابایی",
+        bank: "پاسارگاد",
+        number: "5022291520370980",
+        displayNumber: "5022 2915 2037 0980"
+      },
+      notes: "نواپراپ از برندهای حرفه‌ای و خوش‌نامی است که همکاری بلندمدت با آن برای ما ارزشمند بوده است. تخفیف این فاکتور به پاس قدردانی از اعتماد، حجم سفارش‌ها و همکاری مستمر در نظر گرفته شده است. از همراهی و تعامل حرفه‌ای شما صمیمانه سپاسگزاریم."
     };
 
     const $ = (id) => document.getElementById(id);
 
-    const formatToman = (n) => {
-      const x = Math.round(Number(n) || 0);
-      const s = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      return s + " تومان";
+    const safeText = (el, value) => {
+      if (!el) return;
+      el.textContent = value ?? "";
     };
 
-    const safeText = (el, txt) => { if(el) el.textContent = txt ?? ""; };
+    const createFinancialRows = () => {
+      const container = $("financialList");
+      if (!container) return;
+      container.innerHTML = "";
+      const discountValue = DATA.financial?.discount ? `-${DATA.financial.discount}` : null;
+      const rows = [
+        { label: "جمع خدمات", value: DATA.financial?.subtotal },
+        { label: "تخفیف همکاری", value: discountValue, className: "discount" },
+        { label: "مبلغ نهایی", value: DATA.financial?.total, className: "total" },
+        { label: "پرداختی", value: DATA.financial?.paid },
+        { label: "مانده قابل پرداخت", value: DATA.financial?.due }
+      ];
+      rows.forEach((row) => {
+        const div = document.createElement("div");
+        div.className = `financial-row ${row.className || ""}`.trim();
+        const label = document.createElement("span");
+        label.textContent = row.label;
+        const value = document.createElement("strong");
+        value.textContent = row.value || "—";
+        div.append(label, value);
+        container.appendChild(div);
+      });
+    };
+
+    const buildAccordion = () => {
+      const container = $("servicesAccordion");
+      if (!container) return;
+      container.innerHTML = "";
+      (DATA.services || []).forEach((section, index) => {
+        const item = document.createElement("div");
+        item.className = "accordion-item";
+        if (window.innerWidth > 900) {
+          item.classList.add("open");
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "accordion-header";
+        button.innerHTML = `<div>${section.title || ""} <span>${section.subtotal || ""}</span></div><div class="accordion-icon">⌄</div>`;
+
+        const content = document.createElement("div");
+        content.className = "accordion-content";
+        const body = document.createElement("div");
+        body.className = "accordion-body";
+
+        const table = document.createElement("table");
+        table.className = "item-table";
+        table.innerHTML = `
+          <thead>
+            <tr>
+              <th>شرح خدمات</th>
+              <th>تعداد</th>
+              <th>قیمت واحد</th>
+              <th style="text-align:left;">جمع</th>
+            </tr>
+          </thead>
+        `;
+
+        const tbody = document.createElement("tbody");
+        (section.items || []).forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.title || ""}</td>
+            <td>${row.qty || "—"}</td>
+            <td class="amount">${row.unit || "—"}</td>
+            <td class="amount">${row.total || "—"}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        if (section.note) {
+          const noteRow = document.createElement("tr");
+          noteRow.innerHTML = `<td colspan="4" style="color: var(--text-secondary); font-size: 12px;">${section.note}</td>`;
+          tbody.appendChild(noteRow);
+        }
+
+        table.appendChild(tbody);
+        body.appendChild(table);
+        content.appendChild(body);
+        item.append(button, content);
+        container.appendChild(item);
+
+        button.addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+      });
+    };
 
     const render = () => {
-      safeText($("designerName"), DATA.brand.designerName);
-      safeText($("designerRole"), DATA.brand.designerRole);
-      safeText($("phone"), DATA.brand.phone);
-      safeText($("email"), DATA.brand.email);
-      safeText($("instagram"), DATA.brand.instagram);
-      safeText($("signatureName"), DATA.brand.designerName);
-      safeText($("signatureDate"), "تاریخ صدور: " + (DATA.invoice.issueDate || "—"));
+      safeText($("pageTitle"), DATA.invoice?.title || "فاکتور نهایی");
+      safeText($("statusPill"), DATA.invoice?.status || "—");
+      safeText($("invoiceNumber"), DATA.invoice?.number || "—");
+      safeText($("issueDate"), DATA.invoice?.issueDate || "—");
 
-      const initials = (DATA.brand.designerName || "AB").split(/\s+/).slice(0,2).map(s => s[0]).join("").toUpperCase();
+      safeText($("designerName"), DATA.brand?.designerName || "—");
+      safeText($("designerRole"), DATA.brand?.designerRole || "—");
+
+      const initials = (DATA.brand?.designerName || "AB").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
       safeText($("avatar"), initials || "AB");
 
-      safeText($("pageTitle"), DATA.invoice.title);
-      safeText($("pageSubtitle"), DATA.invoice.subtitle);
-      safeText($("invoiceNo"), "Invoice #" + (DATA.invoice.number || "—"));
-      safeText($("statusPill"), DATA.invoice.status || "—");
+      safeText($("clientName"), DATA.client?.name || "—");
+      safeText($("projectName"), DATA.project?.name || "—");
+      safeText($("contractRef"), DATA.project?.contractRef || "—");
 
-      safeText($("clientName"), DATA.client.name);
-      safeText($("clientMeta"), DATA.client.meta);
+      safeText($("totalAmount"), DATA.financial?.total || "—");
+      safeText($("paidAmount"), DATA.financial?.paid || "—");
+      safeText($("dueAmount"), DATA.financial?.due || "—");
 
-      safeText($("projectName"), DATA.project.name);
-      safeText($("projectMeta"), DATA.project.meta);
+      safeText($("cardNumber"), DATA.paymentCard?.displayNumber || DATA.paymentCard?.number || "—");
+      safeText($("cardHolder"), DATA.paymentCard?.holder || "—");
+      safeText($("cardBank"), DATA.paymentCard?.bank || "—");
 
-      safeText($("contractDate"), DATA.invoice.contractDate);
-      safeText($("contractRef"), DATA.invoice.contractRef);
+      safeText($("notesText"), DATA.notes || "");
 
-      safeText($("planName"), DATA.plan.name);
-      safeText($("planRange"), DATA.plan.range);
+      safeText($("footerName"), DATA.brand?.designerName || "—");
 
-      if($("introNote")) $("introNote").textContent = DATA.texts.intro;
-      if($("thankYou")) $("thankYou").textContent = DATA.texts.thanks;
+      const footerLinks = $("footerLinks");
+      if (footerLinks) {
+        footerLinks.innerHTML = "";
+        const links = [
+          { label: DATA.brand?.phone, href: DATA.brand?.phone ? `tel:${DATA.brand.phone}` : null },
+          { label: DATA.brand?.email, href: DATA.brand?.email ? `mailto:${DATA.brand.email}` : null },
+          { label: DATA.brand?.instagram ? `@${DATA.brand.instagram}` : null, href: DATA.brand?.instagram ? `https://instagram.com/${DATA.brand.instagram}` : null }
+        ].filter((link) => link.label && link.href);
 
-      const list = $("servicesList");
-      list.innerHTML = "";
-      (DATA.services || []).forEach(s => {
-        const li = document.createElement("li");
-        li.textContent = s;
-        list.appendChild(li);
-      });
-
-      const total = Number(DATA.plan.total || 0);
-      const paid = (DATA.payments || []).reduce((a,p) => a + Number(p.amount || 0), 0);
-      const due = Math.max(0, total - paid);
-
-      safeText($("totalAmount"), formatToman(total));
-      safeText($("paidAmount"), formatToman(paid));
-      safeText($("dueAmount"), formatToman(due));
-
-      const cardNumberEl = $("cardNumber");
-      const cardHolderEl = $("cardHolder");
-      const cardBankEl = $("cardBank");
-      if(cardNumberEl && DATA.paymentCard) cardNumberEl.textContent = DATA.paymentCard.displayNumber || DATA.paymentCard.number || "—";
-      if(cardHolderEl && DATA.paymentCard) cardHolderEl.textContent = DATA.paymentCard.holder || "—";
-      if(cardBankEl && DATA.paymentCard) cardBankEl.textContent = DATA.paymentCard.bank || "—";
-
-      const tbody = $("paymentsBody");
-      tbody.innerHTML = "";
-      (DATA.payments || []).forEach(p => {
-        const tr = document.createElement("tr");
-        const td1 = document.createElement("td");
-        const td2 = document.createElement("td");
-        const td3 = document.createElement("td");
-        td1.className = "right";
-        td2.className = "right";
-        td3.className = "left money";
-        td1.textContent = p.stage || "—";
-        td2.textContent = p.note || "—";
-        td3.textContent = formatToman(p.amount || 0);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tbody.appendChild(tr);
-      });
-
-      if(DATA.payments && DATA.payments.length === 0){
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.colSpan = 3;
-        td.className = "right";
-        td.textContent = "پرداختی ثبت نشده است.";
-        tr.appendChild(td);
-        tbody.appendChild(tr);
+        links.forEach((link) => {
+          const a = document.createElement("a");
+          a.textContent = link.label;
+          a.href = link.href;
+          a.target = "_blank";
+          a.rel = "noopener";
+          footerLinks.appendChild(a);
+        });
       }
-    };
 
-    const copyText = async (text) => {
-      try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch(_){
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
-        return true;
-      }
+      createFinancialRows();
+      buildAccordion();
     };
 
     let toastTimer;
-    const toast = (msg) => {
-      const old = document.title;
-      document.title = msg;
-      setTimeout(()=> document.title = old, 1200);
-      const toastEl = $("toast");
-      if(!toastEl) return;
-      toastEl.textContent = msg;
-      toastEl.classList.remove("show");
-      void toastEl.offsetWidth;
-      toastEl.classList.add("show");
+    const showToast = (message) => {
+      const toast = $("toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("show");
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
-        toastEl.classList.remove("show");
-      }, 1200);
+        toast.classList.remove("show");
+      }, 1400);
     };
 
-    const runTests = () => {
-      const total = Number(DATA.plan.total || 0);
-      const paid = (DATA.payments || []).reduce((a,p) => a + Number(p.amount || 0), 0);
-      const due = Math.max(0, total - paid);
-
-      console.assert(!!DATA.plan && typeof DATA.plan === "object", "DATA.plan باید یک آبجکت باشد");
-      console.assert(typeof DATA.plan.total === "number", "DATA.plan.total باید عدد باشد");
-      console.assert(total >= 0, "Total باید مثبت باشد");
-      console.assert(paid >= 0, "Paid باید مثبت باشد");
-      console.assert(due >= 0, "Due باید مثبت باشد");
-
-      console.assert(String(DATA.paymentCard.number || "").replace(/\D/g, "").length === 16, "شماره کارت باید ۱۶ رقم باشد");
-
-      console.assert(total === 8500000, "Total باید ۸,۵۰۰,۰۰۰ باشد");
-      console.assert(paid === 3500000, "Paid باید ۳,۵۰۰,۰۰۰ باشد");
-      console.assert(due === 5000000, "Due باید ۵,۰۰۰,۰۰۰ باشد");
+    const copyCardNumber = async () => {
+      const rawNumber = DATA.paymentCard?.number || "";
+      if (!rawNumber) return;
+      try {
+        await navigator.clipboard.writeText(rawNumber);
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = rawNumber;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+      showToast("کپی شد ✓");
     };
 
-    const bind = () => {
-      const printBtn = $("printBtn");
-      if(printBtn) printBtn.addEventListener("click", () => window.print());
-
-      const copyJsonBtn = $("copyJsonBtn");
-      if(copyJsonBtn) copyJsonBtn.addEventListener("click", async () => {
-        await copyText(JSON.stringify(DATA, null, 2));
-        toast("JSON Copied");
-      });
-
-      const copyLinkBtn = $("copyLinkBtn");
-      if(copyLinkBtn) copyLinkBtn.addEventListener("click", async () => {
-        await copyText(location.href);
-        toast("Link Copied");
-      });
-
-      const copyCardBtn = $("copyCardBtn");
-      if(copyCardBtn) copyCardBtn.addEventListener("click", async () => {
-        const num = (DATA.paymentCard && DATA.paymentCard.number) ? String(DATA.paymentCard.number) : "";
-        if(!num) return;
-        await copyText(num);
-        toast("شماره کارت کپی شد");
-      });
+    const bindEvents = () => {
+      const copyBtn = $("copyCardBtn");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", copyCardNumber);
+      }
     };
 
     render();
-    bind();
-    runTests();
+    bindEvents();
+
+    window.addEventListener("resize", () => {
+      buildAccordion();
+    });
   </script>
 </body>
 </html>
