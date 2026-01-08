@@ -3,1273 +3,740 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>فاکتور نهایی • Armin Babaei</title>
+  <title>فاکتور نهایی — نواپراپ</title>
+
   <style>
-    @font-face {
-      font-family: 'IRANSansX';
-      src: url('./IRANSansX-Light.otf') format('opentype'), url('./IRANSansX-Light.ttf') format('truetype');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'IRANSansX';
-      src: url('./IRANSansX-Medium.otf') format('opentype'), url('./IRANSansX-Medium.ttf') format('truetype');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'IRANSansX';
-      src: url('./IRANSansX-DemiBold.otf') format('opentype'), url('./IRANSansX-DemiBold.ttf') format('truetype');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'IRANSansX';
-      src: url('./IRANSansX-Bold.otf') format('opentype'), url('./IRANSansX-Bold.ttf') format('truetype');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'IRANSansX';
-      src: url('./IRANSansX-ExtraBold.otf') format('opentype'), url('./IRANSansX-ExtraBold.ttf') format('truetype');
-      font-weight: 800;
-      font-style: normal;
-      font-display: swap;
+    @font-face{font-family:'IRANSansX';src:url('./IRANSansX-Light.otf') format('opentype'),url('./IRANSansX-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+    @font-face{font-family:'IRANSansX';src:url('./IRANSansX-Medium.otf') format('opentype'),url('./IRANSansX-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+    @font-face{font-family:'IRANSansX';src:url('./IRANSansX-DemiBold.otf') format('opentype'),url('./IRANSansX-DemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
+    @font-face{font-family:'IRANSansX';src:url('./IRANSansX-Bold.otf') format('opentype'),url('./IRANSansX-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+    @font-face{font-family:'IRANSansX';src:url('./IRANSansX-ExtraBold.otf') format('opentype'),url('./IRANSansX-ExtraBold.ttf') format('truetype');font-weight:800;font-style:normal;font-display:swap}
+
+    :root{
+      --bg:#F6F8FB;
+      --surface:#FFFFFF;
+      --ink:#0B1220;
+      --muted:#5B6475;
+      --border:#E6EAF0;
+
+      --navy:#0B3A5B;
+      --teal:#1BB3A6;
+      --success:#16A34A;
+
+      --r-xl:20px;
+      --r-lg:16px;
+      --r-md:12px;
+
+      --shadow:0 10px 28px rgba(15, 23, 42, 0.08);
+      --shadow2:0 16px 40px rgba(15, 23, 42, 0.10);
+      --max:1080px;
+
+      --t:180ms;
     }
 
-    :root {
-      --bg: #F6F8FB;
-      --surface: #FFFFFF;
-      --text-primary: #0B1220;
-      --text-secondary: #5B6475;
-      --border: #E6EAF0;
-      --primary: #0B3A5B;
-      --accent: #1BB3A6;
-      --gradient-primary: linear-gradient(120deg, rgba(11, 58, 91, 0.16), rgba(27, 179, 166, 0.18));
-      --gradient-primary-strong: linear-gradient(120deg, rgba(11, 58, 91, 0.95), rgba(27, 179, 166, 0.9));
-      --gradient-secondary: linear-gradient(120deg, rgba(109, 40, 217, 0.18), rgba(34, 197, 94, 0.18));
-      --success: #16A34A;
-      --danger: #DC2626;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-pill: 999px;
-      --shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
-      --max-width: 1160px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html, body, button, input, select, textarea{
+      font-family:'IRANSansX', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
     }
 
-    * { box-sizing: border-box; }
-    html, body, button, input, textarea, select {
-      font-family: 'IRANSansX', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: geometricPrecision;
-    }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      background-image: radial-gradient(800px circle at 20% 0%, rgba(27, 179, 166, 0.08), transparent 60%),
-        radial-gradient(900px circle at 80% 20%, rgba(11, 58, 91, 0.06), transparent 60%);
-      color: var(--text-primary);
-      font-size: 16px;
-      font-weight: 500;
-      overflow-x: hidden;
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(900px circle at 18% 0%, rgba(27,179,166,0.10), transparent 60%),
+        radial-gradient(980px circle at 82% 18%, rgba(11,58,91,0.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), #FFFFFF);
       padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .page {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 24px 16px 64px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    a{color:inherit}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 14px 60px;}
+    .topbar{
+      position:sticky; top:12px; z-index:40;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border-radius:999px;
+      box-shadow:0 10px 22px rgba(15,23,42,.06);
+      padding:10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
-      position: relative;
+    .chip{
+      display:flex; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.72));
+    }
+    .avatar{
+      width:34px; height:34px; border-radius:999px;
+      background:linear-gradient(135deg, var(--navy), var(--teal));
+      color:#fff; display:grid; place-items:center;
+      font-weight:800; letter-spacing:.3px; font-size:13px;
+      box-shadow: 0 10px 18px rgba(11,58,91,.18);
+    }
+    .chip b{font-size:13px; font-weight:800}
+    .chip span{font-size:12px; color:var(--muted); font-weight:600}
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      min-height:44px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      user-select:none;
+    }
+    .btn.primary{
+      color:#fff;
+      background:linear-gradient(135deg, var(--navy), var(--teal));
+      box-shadow:0 14px 26px rgba(11,58,91,.16);
+    }
+    .btn.ghost{
+      color:var(--ink);
+      background:rgba(255,255,255,.9);
+      border-color:var(--border);
     }
 
-    .header-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
+    @media (hover:hover) and (pointer:fine){
+      .btn.primary:hover{transform:translateY(-1px); box-shadow:0 18px 34px rgba(11,58,91,.18)}
+      .btn.ghost:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(15,23,42,.06)}
+      .btn:active{transform:translateY(0px); box-shadow:none}
+      .card:hover{transform:translateY(-1px); box-shadow:var(--shadow2)}
     }
 
-    .header-bar::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: var(--gradient-primary);
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:start;
     }
 
-    .header-main {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    .card{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition:transform var(--t) ease, box-shadow var(--t) ease;
     }
 
-    .header-title {
-      font-size: clamp(20px, 3.4vw, 26px);
-      font-weight: 700;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .pad{padding:20px}
+    .headerCard{
+      position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,.96));
+    }
+    .accentStrip{
+      height:10px;
+      background:linear-gradient(90deg, var(--navy), var(--teal));
+      opacity:.92;
     }
 
-    .status-pill {
-      background: rgba(27, 179, 166, 0.12);
-      color: var(--accent);
-      border: 1px solid rgba(27, 179, 166, 0.24);
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 12px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 32px;
+    .titleRow{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .hTitle{
+      margin:0;
+      font-size:clamp(20px, 2.6vw, 28px);
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.85;
+      font-size:13.3px;
+      font-weight:600;
     }
 
-    .icon {
-      width: 18px;
-      height: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: currentColor;
+    .pills{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(246,248,251,.85);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      min-height:36px;
+    }
+    .status{
+      background:rgba(27,179,166,.10);
+      color:var(--teal);
+      border-color:rgba(27,179,166,.25);
     }
 
-    .icon svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .header-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      text-align: left;
-    }
-
-    .meta-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .meta-block strong {
-      font-size: 14px;
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-    .meta-block.ltr {
-      text-align: left;
-      direction: ltr;
-    }
-    .meta-block.ltr strong {
-      direction: ltr;
-      text-align: left;
-    }
-
-    .identity-chip {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: var(--radius-pill);
-      background: #fff;
-      min-height: 44px;
-    }
-
-    .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: var(--radius-pill);
-      background: rgba(11, 58, 91, 0.12);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-    }
-
-    .identity-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .identity-text strong {
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .summary-card {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 20px;
-      padding: 22px;
-      align-items: center;
-    }
-
-    .summary-left {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .summary-label {
-      font-size: 13px;
-      color: var(--text-secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .summary-value {
-      font-size: clamp(18px, 3.2vw, 22px);
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .summary-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .summary-total {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: rgba(11, 58, 91, 0.04);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 12px 24px rgba(11, 58, 91, 0.08);
-      border-color: rgba(11, 58, 91, 0.14);
-    }
-
-    .summary-strip {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 10px;
-      background: var(--gradient-primary);
-    }
-
-    .summary-badge {
-      position: absolute;
-      top: 6px;
-      left: 12px;
-      background: rgba(11, 58, 91, 0.12);
-      color: var(--primary);
-      border: 1px solid rgba(11, 58, 91, 0.2);
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .summary-blob {
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      right: -50px;
-      bottom: -60px;
-      background: radial-gradient(circle, rgba(27, 179, 166, 0.25), transparent 65%);
-      opacity: 0.24;
-      pointer-events: none;
-    }
-
-    .summary-total .label {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .summary-total .amount {
-      font-size: clamp(28px, 4.5vw, 36px);
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: 0.4px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .summary-sub {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-secondary);
-      gap: 10px;
-    }
-
-    .summary-sub span {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .grid {
-      display: grid;
+    .metaGrid{
+      margin-top:14px;
+      display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+      gap:10px;
+    }
+    .meta{
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:12px 14px;
+      background:rgba(255,255,255,.95);
+    }
+    .k{color:var(--muted); font-size:12px; font-weight:800; display:flex; align-items:center; gap:8px}
+    .v{margin-top:6px; font-size:13.5px; font-weight:900; line-height:1.6}
+    .small{margin-top:4px; font-size:12px; color:var(--muted); font-weight:650; line-height:1.7}
+
+    .heroPay{
+      margin-top:14px;
+      border-radius:var(--r-xl);
+      border:1px solid rgba(11,58,91,.12);
+      background:
+        radial-gradient(520px circle at 15% 20%, rgba(27,179,166,.16), transparent 60%),
+        linear-gradient(135deg, rgba(11,58,91,.06), rgba(27,179,166,.08));
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .heroPay .label{color:rgba(11,18,32,.74); font-weight:900; font-size:12px; display:flex; gap:8px; align-items:center}
+    .heroPay .amount{
+      font-size:clamp(22px, 3.4vw, 34px);
+      font-weight:950;
+      letter-spacing:.2px;
+      direction:ltr; unicode-bidi:plaintext;
+      font-variant-numeric: tabular-nums;
+      color:var(--navy);
+    }
+    .heroPay .mini{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color:var(--muted); font-size:12px; font-weight:800;
+    }
+    .mini span{padding:8px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.7); min-height:36px; display:inline-flex; align-items:center}
+
+    .sectionTitle{
+      display:flex; gap:10px; align-items:center;
+      margin:0 0 12px;
+      font-size:15px;
+      font-weight:950;
+    }
+    .icon{
+      width:18px; height:18px; display:inline-block;
+      color:var(--navy);
+      flex:0 0 auto;
     }
 
-    .section-title {
-      margin: 0 0 14px;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .summary{
+      display:grid; gap:10px;
     }
-
-    .section-title .icon {
-      color: var(--accent);
+    .sumRow{
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:12px 14px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      background:rgba(246,248,251,.7);
+      font-size:13.2px;
+      font-weight:850;
     }
-
-    .financial-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .financial-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      background: #fff;
-      gap: 12px;
-    }
-
-    .financial-row .label-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-    }
-
-    .financial-row strong {
-      font-weight: 700;
-      direction: ltr;
-      unicode-bidi: plaintext;
-      text-align: left;
+    .sumRow b{
+      font-weight:950;
+      direction:ltr; unicode-bidi:plaintext;
       font-variant-numeric: tabular-nums;
     }
+    .sumRow.total{
+      background:linear-gradient(135deg, rgba(11,58,91,.08), rgba(27,179,166,.10));
+      border-color:rgba(11,58,91,.16);
+    }
+    .sumRow.discount b{color:var(--success)}
 
-    .financial-row.total {
-      background: rgba(11, 58, 91, 0.06);
-      border-color: rgba(11, 58, 91, 0.18);
-      font-weight: 700;
+    .accordion{
+      display:grid; gap:10px;
+    }
+    details{
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      overflow:hidden;
+      background:#fff;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      user-select:none;
+      min-height:52px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumHead{
+      display:flex; align-items:center; gap:10px;
+      font-weight:950;
+      font-size:13.5px;
+    }
+    .countPill{
+      font-size:12px; font-weight:900;
+      color:rgba(11,18,32,.75);
+      background:rgba(246,248,251,.85);
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:999px;
+      min-height:32px;
+      display:inline-flex; align-items:center;
+    }
+    .chev{
+      width:18px; height:18px; color:rgba(11,18,32,.55);
+      transition:transform var(--t) ease;
+    }
+    details[open] .chev{transform:rotate(180deg)}
+    .detailsBody{
+      border-top:1px solid var(--border);
+      padding:12px 14px 14px;
+      background:rgba(246,248,251,.55);
+    }
+    .line{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 10px;
+      border:1px solid rgba(230,234,240,.9);
+      background:rgba(255,255,255,.9);
+      border-radius:14px;
+      margin-top:8px;
+      font-size:13px;
+      font-weight:750;
+    }
+    .line b{
+      direction:ltr; unicode-bidi:plaintext;
+      font-variant-numeric: tabular-nums;
+      font-weight:950;
     }
 
-    .financial-row.discount strong {
-      color: var(--success);
+    .payCard{
+      border-radius:var(--r-xl);
+      padding:16px;
+      border:1px solid rgba(11,58,91,.12);
+      background:
+        radial-gradient(640px circle at 12% 18%, rgba(27,179,166,.18), transparent 58%),
+        linear-gradient(135deg, rgba(11,58,91,.90), rgba(27,179,166,.88));
+      color:#fff;
+      position:relative;
+      overflow:hidden;
     }
-
-    .accordion {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .watermark{
+      position:absolute;
+      inset:auto -20px -30px auto;
+      font-weight:950;
+      font-size:54px;
+      opacity:.08;
+      letter-spacing:1px;
+      transform:rotate(-8deg);
+      pointer-events:none;
+      white-space:nowrap;
     }
-
-    .accordion-item {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: #fff;
-      position: relative;
+    .chipSvg{
+      width:46px; height:34px;
+      border-radius:10px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.25);
     }
-
-    .accordion-header {
-      width: 100%;
-      background: transparent;
-      border: none;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      min-height: 44px;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .accordion-header .title {
-      color: var(--text-primary);
-    }
-
-    .accordion-header .subtotal {
-      color: var(--text-secondary);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .accordion-header .title-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .accordion-header .pill {
-      background: rgba(11, 58, 91, 0.08);
-      color: var(--primary);
-      border: 1px solid rgba(11, 58, 91, 0.16);
-      border-radius: var(--radius-pill);
-      padding: 2px 8px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .accordion-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      transition: transform 0.2s ease;
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease;
-    }
-
-    .accordion-body {
-      padding: 0 16px 14px;
-    }
-
-    .item-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    .item-table th,
-    .item-table td {
-      text-align: right;
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .item-table th {
-      color: var(--text-secondary);
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .item-table td.amount {
-      direction: ltr;
-      text-align: left;
-      font-weight: 600;
-      unicode-bidi: plaintext;
+    .payTop{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap}
+    .payTop .lbl{font-size:12px; opacity:.88; font-weight:850}
+    .cardNum{
+      margin-top:10px;
+      font-size:18px;
+      font-weight:950;
+      letter-spacing:2px;
+      direction:ltr; unicode-bidi:plaintext;
       font-variant-numeric: tabular-nums;
     }
-
-    .item-table tr:last-child td {
-      border-bottom: none;
+    .payMeta{
+      margin-top:10px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      font-size:13px; font-weight:850;
+    }
+    .copyBtn{
+      min-height:44px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.18);
+      color:#fff;
+      font-weight:950;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
     }
 
-    .accordion-item.open .accordion-content {
-      max-height: 500px;
+    .note{
+      border:1px dashed rgba(230,234,240,.9);
+      border-radius:var(--r-xl);
+      padding:14px 14px;
+      background:rgba(255,255,255,.92);
+      color:rgba(11,18,32,.86);
+      line-height:1.95;
+      font-size:13px;
+      font-weight:650;
     }
 
-    .accordion-item.open .accordion-icon {
-      transform: rotate(180deg);
+    .toast{
+      position:fixed;
+      bottom:16px;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(11,18,32,.92);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:999px;
+      box-shadow:0 12px 26px rgba(15,23,42,.22);
+      font-size:13px;
+      font-weight:900;
+      display:flex; align-items:center; gap:8px;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity var(--t) ease, transform var(--t) ease;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-2px)}
+    .toast .ok{color:#34d399}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .metaGrid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .wrap{padding:18px 12px 64px}
+      .topbar{border-radius:18px; padding:10px; gap:8px}
+      .chip{width:100%; justify-content:center}
+      .btns{width:100%}
+      .btn{flex:1; justify-content:center}
+      .pad{padding:16px}
+      .heroPay{padding:14px}
     }
 
-    .accordion-item.open::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--accent);
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; animation:none !important; scroll-behavior:auto !important}
     }
 
-    .accordion-item.open .accordion-header {
-      background: rgba(27, 179, 166, 0.05);
-    }
-
-    .payment-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .bank-card {
-      background: var(--gradient-primary-strong);
-      color: #fff;
-      border-radius: var(--radius-md);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bank-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 45%);
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .bank-chip {
-      width: 46px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .bank-watermark {
-      position: absolute;
-      bottom: 12px;
-      left: 16px;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      opacity: 0.08;
-      text-transform: uppercase;
-    }
-
-    .bank-card .number {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .bank-card .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 13px;
-      opacity: 0.9;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .copy-btn {
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      background: transparent;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 12px;
-      font-weight: 600;
-      min-height: 44px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .note-card {
-      padding: 18px;
-      font-size: 14px;
-      line-height: 1.9;
-      color: var(--text-secondary);
-    }
-
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 13px;
-      color: var(--text-secondary);
-      padding: 16px;
-    }
-
-    .footer strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .links a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: calc(24px + env(safe-area-inset-bottom));
-      right: 24px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 10px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      transform: translateY(6px);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      color: var(--text-primary);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .ltr-number {
-      direction: ltr;
-      unicode-bidi: plaintext;
-      text-align: left;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .brand-stamp {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-secondary);
-      opacity: 0.6;
-    }
-
-    .brand-stamp .mark {
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
-      background: var(--gradient-secondary);
-      border: 1px solid rgba(109, 40, 217, 0.12);
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .copy-btn:hover,
-      .accordion-header:hover {
-        transform: translateY(-1px);
-        background: rgba(11, 58, 91, 0.02);
-      }
-      .copy-btn:active,
-      .accordion-header:active {
-        transform: translateY(0);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-        animation: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .summary-card {
-        grid-template-columns: 1fr;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      .header-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-meta {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .page {
-        padding: 16px 12px 56px;
-      }
-      .header-meta {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .identity-chip {
-        width: 100%;
-        justify-content: space-between;
-      }
-      .toast {
-        right: 16px;
-        left: 16px;
-        text-align: center;
-      }
-      .bank-card .number {
-        font-size: 16px;
-        letter-spacing: 1.6px;
-      }
-    }
-
-    @media print {
-      body {
-        background: #fff;
-        background-image: none;
-      }
-      .card {
-        box-shadow: none;
-      }
-      .header-bar::before,
-      .summary-strip,
-      .summary-blob,
-      .bank-card::before {
-        display: none !important;
-      }
-      .bank-card {
-        background: #fff;
-        color: var(--primary);
-        border: 1px solid var(--border);
-      }
-      .summary-total {
-        box-shadow: none;
-      }
-      .bank-watermark,
-      .brand-stamp {
-        display: none !important;
-      }
-      .copy-btn {
-        border-color: var(--border);
-        color: var(--primary);
-      }
+    @media print{
+      body{background:#fff !important}
+      .topbar{display:none !important}
+      .card{box-shadow:none !important}
+      .accentStrip{display:none !important}
+      .payCard{background:#fff !important; color:#000 !important; border:1px solid #ddd !important}
+      .copyBtn{display:none !important}
+      .watermark{display:none !important}
+      .toast{display:none !important}
     }
   </style>
 </head>
+
 <body>
-  <main class="page">
-    <section class="card header-bar">
-      <div class="header-main">
-        <h1 class="header-title">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path>
-              <path d="M14 3v5h5"></path>
-              <path d="M9 13h6"></path>
-              <path d="M9 17h6"></path>
-            </svg>
-          </span>
-          <span id="pageTitle">فاکتور نهایی</span>
-        </h1>
-        <span class="status-pill" id="statusPill">Final</span>
-      </div>
-      <div class="header-meta">
-        <div class="meta-block ltr">
-          <span>Invoice #</span>
-          <strong class="ltr-number" id="invoiceNumber">—</strong>
-        </div>
-        <div class="meta-block">
-          <span>تاریخ صدور</span>
-          <strong id="issueDate">—</strong>
-        </div>
-        <div class="identity-chip">
-          <div class="avatar" id="avatar">AB</div>
-          <div class="identity-text">
-            <strong id="designerName">Armin Babaei</strong>
-            <span id="designerRole">Graphic Designer</span>
-          </div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="chip">
+        <div class="avatar" id="avatar">AB</div>
+        <div style="display:flex; flex-direction:column; line-height:1.15;">
+          <b id="designerName">آرمین بابایی</b>
+          <span id="designerRole">Graphic Designer</span>
         </div>
       </div>
-    </section>
 
-    <section class="card summary-card">
-      <div class="summary-left">
-        <div>
-          <div class="summary-label">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M20 21a8 8 0 0 0-16 0"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </span>
-            کارفرما
-          </div>
-          <div class="summary-value" id="clientName">—</div>
-        </div>
-        <div>
-          <div class="summary-label">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"></path>
-                <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </span>
-            پروژه
-          </div>
-          <div class="summary-value" id="projectName">—</div>
-        </div>
-        <div class="summary-meta" id="contractRef">—</div>
-      </div>
-      <div class="summary-total">
-        <div class="summary-strip"></div>
-        <div class="summary-badge" id="summaryBadge">Final</div>
-        <div class="summary-blob" aria-hidden="true"></div>
-        <div class="label">مبلغ نهایی قابل پرداخت</div>
-        <div class="amount ltr-number" id="totalAmount">—</div>
-        <div class="summary-sub">
-          <div>پرداختی‌ها <span class="ltr-number" id="paidAmount">—</span></div>
-          <div>مانده <span class="ltr-number" id="dueAmount">—</span></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="grid">
-      <section class="card" style="padding: 18px;">
-        <h2 class="section-title">
+      <div class="btns">
+        <button class="btn ghost" id="copyLinkBtn" type="button">
           <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
-              <path d="M9 7h6"></path>
-              <path d="M9 11h6"></path>
-              <path d="M9 15h2"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1"/><path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1"/></svg>
           </span>
-          خلاصه مالی
-        </h2>
-        <div class="financial-list" id="financialList"></div>
-      </section>
-
-      <section class="card" style="padding: 18px;">
-        <h2 class="section-title">
+          کپی لینک
+        </button>
+        <button class="btn ghost" id="copyJsonBtn" type="button">
           <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="6" width="18" height="12" rx="2"></rect>
-              <path d="M3 10h18"></path>
-              <path d="M7 15h4"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v12"/><path d="M18 7h-8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/></svg>
           </span>
-          اطلاعات پرداخت
-        </h2>
-        <div class="payment-card">
-          <div class="bank-card">
-            <div class="bank-watermark">PASARGAD</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; position:relative; z-index:1;">
-              <div>
-                <div style="font-size:12px; opacity:.8;">شماره کارت</div>
-                <div class="number ltr-number" id="cardNumber">—</div>
-              </div>
-              <div style="display:flex; align-items:center; gap:12px;">
-                <div class="bank-chip" aria-hidden="true"></div>
-                <button class="copy-btn" id="copyCardBtn" type="button">
-                  <span class="icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24">
-                      <rect x="9" y="9" width="10" height="12" rx="2"></rect>
-                      <rect x="5" y="3" width="10" height="12" rx="2"></rect>
-                    </svg>
-                  </span>
-                  کپی
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div>دارنده: <strong id="cardHolder">—</strong></div>
-              <div>بانک: <strong id="cardBank">—</strong></div>
-            </div>
-          </div>
-          <div style="font-size:12px; color:var(--text-secondary);">برای پرداخت سریع، از شماره کارت فوق استفاده نمایید.</div>
-        </div>
-      </section>
+          کپی اطلاعات
+        </button>
+        <button class="btn primary" id="printBtn" type="button">
+          <span class="icon" style="color:#fff" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+          </span>
+          پرینت / PDF
+        </button>
+      </div>
     </div>
 
-    <section class="card" style="padding: 18px;">
-      <h2 class="section-title">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <rect x="3" y="4" width="8" height="8" rx="2"></rect>
-            <rect x="13" y="4" width="8" height="8" rx="2"></rect>
-            <rect x="3" y="14" width="8" height="8" rx="2"></rect>
-            <rect x="13" y="14" width="8" height="8" rx="2"></rect>
-          </svg>
-        </span>
-        ریز خدمات
-      </h2>
-      <div class="accordion" id="servicesAccordion"></div>
-    </section>
+    <div class="grid">
+      <section class="card headerCard">
+        <div class="accentStrip"></div>
+        <div class="pad">
+          <div class="titleRow">
+            <div>
+              <h1 class="hTitle" id="pageTitle">فاکتور نهایی خدمات طراحی — نواپراپ</h1>
+              <p class="sub" id="pageSubtitle">این سند خلاصهٔ خدمات ارائه‌شده و وضعیت مالی پروژه را به‌صورت شفاف نمایش می‌دهد.</p>
+            </div>
+            <div class="pills">
+              <span class="pill status" id="statusPill">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                Final
+              </span>
+              <span class="pill" id="invoiceNo">Invoice #NP-1403-10-18</span>
+              <span class="pill" id="issueDate">۱۸ دی ۱۴۰۳</span>
+            </div>
+          </div>
 
-    <section class="card note-card">
-      <h2 class="section-title" style="margin-bottom: 8px;">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 6h16"></path>
-            <path d="M4 12h16"></path>
-            <path d="M4 18h10"></path>
-          </svg>
-        </span>
-        یادداشت
-      </h2>
-      <p id="notesText" style="margin:0;"></p>
-    </section>
+          <div class="metaGrid">
+            <div class="meta">
+              <div class="k">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+                </span>
+                کارفرما
+              </div>
+              <div class="v" id="clientName">NavaProp</div>
+              <div class="small" id="clientMeta">کارفرما / برند</div>
+            </div>
 
-    <footer class="card footer">
-      <div>
-        <strong id="footerName">—</strong>
-        <div>Armin Invoice Template</div>
-        <div class="brand-stamp">
-          <span class="mark" aria-hidden="true"></span>
-          Designed by Armin Babaei
+            <div class="meta">
+              <div class="k">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6h10"/><path d="M4 6h2"/><path d="M4 12h2"/><path d="M4 18h2"/><path d="M10 12h10"/><path d="M10 18h10"/></svg>
+                </span>
+                پروژه
+              </div>
+              <div class="v" id="projectName">خدمات طراحی گرافیک</div>
+              <div class="small" id="projectMeta">بنر • سرتیفیکیت • هدینگ وب‌سایت</div>
+            </div>
+          </div>
+
+          <div class="heroPay">
+            <div>
+              <div class="label">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v10H3z"/><path d="M7 11h6"/></svg>
+                </span>
+                مبلغ نهایی قابل پرداخت
+              </div>
+              <div class="amount" id="totalBig">10,000,000</div>
+            </div>
+            <div class="mini">
+              <span>پرداختی: <b id="paidMini" style="direction:ltr;unicode-bidi:plaintext">0</b></span>
+              <span>مانده: <b id="dueMini" style="direction:ltr;unicode-bidi:plaintext">10,000,000</b></span>
+            </div>
+          </div>
+
+          <div style="margin-top:14px" class="note" id="introNote">
+            این فاکتور بابت خدمات طراحی گرافیک برای برند نواپراپ در تاریخ ۱۸ دی ۱۴۰۳ صادر شده است. تخفیف اعمال‌شده به پاس قدردانی از همکاری مستمر و حجم سفارش‌ها در نظر گرفته شده است.
+          </div>
+
+          <div style="margin-top:14px; display:grid; gap:10px; color:var(--muted); font-weight:800; font-size:13px;">
+            <div style="display:flex; gap:10px; align-items:center">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </span>
+              تماس: <span id="phone">+98 933 174 1220</span> • <span id="email">babaeiarmin175@gmail.com</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="links" id="footerLinks"></div>
-    </footer>
-  </main>
+      </section>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <aside class="card">
+        <div class="pad">
+          <div class="sectionTitle">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 4.5v11L12 22 3 17.5v-11z"/><path d="M12 22v-9.5"/><path d="M21 6.5l-9 4.5-9-4.5"/></svg>
+            </span>
+            خلاصه مالی
+          </div>
+
+          <div class="summary">
+            <div class="sumRow"><span>جمع کل خدمات</span><b id="subtotalAmount">11,050,000</b></div>
+            <div class="sumRow discount"><span>تخفیف همکاری + مانده قبلی</span><b id="discountAmount">-1,050,000</b></div>
+            <div class="sumRow total"><span>مبلغ نهایی قابل پرداخت</span><b id="totalAmount">10,000,000</b></div>
+            <div class="sumRow"><span>پرداختی</span><b id="paidAmount">0</b></div>
+            <div class="sumRow total"><span>مانده قابل پرداخت</span><b id="dueAmount">10,000,000</b></div>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="sectionTitle">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v10H3z"/><path d="M7 11h6"/></svg>
+            </span>
+            اطلاعات پرداخت
+          </div>
+
+          <div class="payCard">
+            <div class="watermark">PASARGAD</div>
+            <div class="payTop">
+              <div>
+                <div class="lbl">نام دارنده</div>
+                <div style="font-weight:950">آرمین بابایی لیف‌شاگرد</div>
+              </div>
+              <div class="chipSvg" aria-hidden="true"></div>
+            </div>
+
+            <div class="cardNum" id="cardDisplay">5022 2915 2037 0980</div>
+
+            <div class="payMeta">
+              <div><span class="lbl">بانک</span><div style="font-weight:950">پاسارگاد</div></div>
+              <button class="copyBtn" id="copyCardBtn" type="button">
+                <span class="icon" style="color:#fff" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 9h10v10H9z"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </span>
+                کپی
+              </button>
+            </div>
+
+            <div style="margin-top:10px; font-size:12px; opacity:.9; font-weight:800">
+              لطفاً پس از واریز، رسید پرداخت را ارسال فرمایید.
+            </div>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="sectionTitle">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+            </span>
+            جزئیات خدمات
+          </div>
+
+          <div class="accordion" id="acc">
+            <details id="d1">
+              <summary>
+                <div class="sumHead">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M7 12h10"/><path d="M9 18h6"/></svg>
+                  </span>
+                  طراحی بنرها
+                  <span class="countPill">8 آیتم</span>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="detailsBody">
+                <div class="line"><span>آپدیت جدید و معرفی پلن جدید</span><b>480,000</b></div>
+                <div class="line"><span>تخفیفات یلدایی</span><b>390,000</b></div>
+                <div class="line"><span>تخفیفات کریسمس</span><b>390,000</b></div>
+                <div class="line"><span>بونس شارژ کیف پول</span><b>415,000</b></div>
+                <div class="line"><span>دلار ارزان</span><b>400,000</b></div>
+                <div class="line"><span>پلن تک‌مرحله‌ای</span><b>400,000</b></div>
+                <div class="line"><span>هدیه ۳ دلاری</span><b>385,000</b></div>
+                <div class="line"><span>بونس 40% (به‌همراه فایل لایه‌باز)</span><b>460,000</b></div>
+              </div>
+            </details>
+
+            <details id="d2">
+              <summary>
+                <div class="sumHead">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10H7z"/><path d="M4 4h16v16H4z"/></svg>
+                  </span>
+                  سرتیفیکیت‌ها
+                  <span class="countPill">2 + خدمات تکمیلی</span>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="detailsBody">
+                <div class="line"><span>سرتیفیکیت برداشت سود</span><b>485,000</b></div>
+                <div class="line"><span>سرتیفیکیت قبولی در چالش</span><b>485,000</b></div>
+                <div class="line"><span>۴ بک + خروجی PSD</span><b>500,000</b></div>
+              </div>
+            </details>
+
+            <details id="d3">
+              <summary>
+                <div class="sumHead">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M20 19V5"/><path d="M4 12h16"/></svg>
+                  </span>
+                  هدینگ‌های وب‌سایت
+                  <span class="countPill">33 عدد</span>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="detailsBody">
+                <div class="line"><span>قیمت هر هدینگ (با تخفیف)</span><b>170,000</b></div>
+                <div class="line"><span>تعداد کل هدینگ‌ها</span><b>33</b></div>
+                <div class="line"><span>جمع هدینگ‌ها</span><b>5,610,000</b></div>
+              </div>
+            </details>
+          </div>
+
+          <div style="height:14px"></div>
+
+          <div class="note" id="thankYou">
+            نواپراپ از برندهای حرفه‌ای و خوش‌نامی است که همکاری بلندمدت با آن برای ما ارزشمند بوده است. تخفیف این فاکتور به پاس قدردانی از اعتماد، حجم سفارش‌ها و همکاری مستمر در نظر گرفته شده است. از همراهی و تعامل حرفه‌ای شما صمیمانه سپاسگزاریم.
+          </div>
+
+          <div style="margin-top:14px; color:var(--muted); font-size:12.5px; font-weight:800; line-height:1.8">
+            با احترام — <span style="font-weight:950; color:var(--ink)">آرمین بابایی</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="ok">✓</span>
+    <span id="toastMsg">کپی شد</span>
+  </div>
 
   <script>
-    const DATA = {
-      brand: {
-        designerName: "Armin Babaei",
-        designerRole: "Graphic Designer",
-        phone: "+98 933 174 1220",
-        email: "babaeiarmin175@gmail.com",
-        instagram: "armin.b1220"
-      },
-      invoice: {
-        number: "CB-1404-001",
-        status: "Final",
-        title: "فاکتور نهایی خدمات طراحی",
-        issueDate: "۸ دی ۱۴۰۳"
-      },
-      client: {
-        name: "نواپراپ"
-      },
-      project: {
-        name: "خدمات طراحی گرافیک (بنر / سرتیفیکیت / هدینگ وب‌سایت)",
-        contractRef: "شماره قرارداد: NV-1403-22"
-      },
-      financial: {
-        subtotal: "۱۱,۰۰۰,۰۰۰ تومان",
-        discount: "۱,۰۰۰,۰۰۰ تومان",
-        total: "۱۰,۰۰۰,۰۰۰ تومان",
-        paid: "۰ تومان",
-        due: "۱۰,۰۰۰,۰۰۰ تومان"
-      },
-      services: [
-        {
-          title: "طراحی بنرها",
-          subtotal: "۷,۰۰۰,۰۰۰ تومان",
-          items: [
-            { title: "بنر کمپین زمستانه", qty: "۱", unit: "۱,۰۰۰,۰۰۰ تومان", total: "۱,۰۰۰,۰۰۰ تومان" },
-            { title: "بنر تبلیغ محصول", qty: "۲", unit: "۸۰۰,۰۰۰ تومان", total: "۱,۶۰۰,۰۰۰ تومان" },
-            { title: "بنر اینستاگرام", qty: "۲", unit: "۷۰۰,۰۰۰ تومان", total: "۱,۴۰۰,۰۰۰ تومان" },
-            { title: "بنر وب‌سایت", qty: "۱", unit: "۹۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
-            { title: "بنر ایونت", qty: "۱", unit: "۸۰۰,۰۰۰ تومان", total: "۸۰۰,۰۰۰ تومان" },
-            { title: "بنر تخفیف ویژه", qty: "۱", unit: "۶۰۰,۰۰۰ تومان", total: "۶۰۰,۰۰۰ تومان" },
-            { title: "بنر خبرنامه", qty: "۱", unit: "۷۰۰,۰۰۰ تومان", total: "۷۰۰,۰۰۰ تومان" }
-          ]
-        },
-        {
-          title: "طراحی سرتیفیکیت‌ها",
-          subtotal: "۲,۵۰۰,۰۰۰ تومان",
-          items: [
-            { title: "سرتیفیکیت طلایی", qty: "۱", unit: "۱,۲۰۰,۰۰۰ تومان", total: "۱,۲۰۰,۰۰۰ تومان" },
-            { title: "سرتیفیکیت نقره‌ای", qty: "۱", unit: "۹۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
-            { title: "خدمات تکمیلی", qty: "۱", unit: "۴۰۰,۰۰۰ تومان", total: "۴۰۰,۰۰۰ تومان" }
-          ]
-        },
-        {
-          title: "هدینگ‌های وب‌سایت",
-          subtotal: "۱,۵۰۰,۰۰۰ تومان",
-          items: [
-            { title: "هدینگ صفحه اصلی", qty: "۳", unit: "۳۰۰,۰۰۰ تومان", total: "۹۰۰,۰۰۰ تومان" },
-            { title: "هدینگ صفحات داخلی", qty: "۲", unit: "۳۰۰,۰۰۰ تومان", total: "۶۰۰,۰۰۰ تومان" }
-          ]
-        },
-        {
-          title: "مانده قبلی",
-          subtotal: "۱,۰۰۰,۰۰۰ تومان",
-          note: "این مورد در تخفیف همکاری لحاظ شده است.",
-          items: [
-            { title: "مانده قبلی قرارداد", qty: "۱", unit: "۱,۰۰۰,۰۰۰ تومان", total: "۱,۰۰۰,۰۰۰ تومان" }
-          ]
-        }
-      ],
-      paymentCard: {
-        holder: "آرمین بابایی",
-        bank: "پاسارگاد",
-        number: "5022291520370980",
-        displayNumber: "5022 2915 2037 0980"
-      },
-      notes: "نواپراپ از برندهای حرفه‌ای و خوش‌نامی است که همکاری بلندمدت با آن برای ما ارزشمند بوده است. تخفیف این فاکتور به پاس قدردانی از اعتماد، حجم سفارش‌ها و همکاری مستمر در نظر گرفته شده است. از همراهی و تعامل حرفه‌ای شما صمیمانه سپاسگزاریم."
+    const RAW_CARD = "5022291520370980";
+
+    const toast = (msg) => {
+      const t = document.getElementById("toast");
+      const m = document.getElementById("toastMsg");
+      m.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastT);
+      window.__toastT = setTimeout(() => t.classList.remove("show"), 1200);
     };
 
-    const ICONS = {
-      invoice: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h6"></path></svg>`,
-      user: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
-      briefcase: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"></path><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>`,
-      calculator: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 7h6"></path><path d="M9 11h6"></path><path d="M9 15h2"></path></svg>`,
-      tag: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10v6l-6 6-10-10V6h6l10 4Z"></path><circle cx="7.5" cy="8.5" r="1.5"></circle></svg>`,
-      credit: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path><path d="M7 15h4"></path></svg>`,
-      copy: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="10" height="12" rx="2"></rect><rect x="5" y="3" width="10" height="12" rx="2"></rect></svg>`,
-      layers: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"></path><path d="M3 12l9 5 9-5"></path><path d="M3 16l9 5 9-5"></path></svg>`,
-      image: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 4-4 4 4 5-5 5 5"></path></svg>`,
-      text: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></svg>`
-    };
-
-    const $ = (id) => document.getElementById(id);
-
-    const safeText = (el, value) => {
-      if (!el) return;
-      el.textContent = value ?? "";
-    };
-
-    const createFinancialRows = () => {
-      const container = $("financialList");
-      if (!container) return;
-      container.innerHTML = "";
-      const discountValue = DATA.financial?.discount ? `-${DATA.financial.discount}` : null;
-      const rows = [
-        { label: "جمع خدمات", value: DATA.financial?.subtotal, icon: ICONS.calculator },
-        { label: "تخفیف همکاری", value: discountValue, className: "discount", icon: ICONS.tag },
-        { label: "مبلغ نهایی", value: DATA.financial?.total, className: "total", icon: ICONS.invoice },
-        { label: "پرداختی", value: DATA.financial?.paid, icon: ICONS.credit },
-        { label: "مانده قابل پرداخت", value: DATA.financial?.due, icon: ICONS.credit }
-      ];
-      rows.forEach((row) => {
-        const div = document.createElement("div");
-        div.className = `financial-row ${row.className || ""}`.trim();
-        const label = document.createElement("span");
-        label.className = "label-wrap";
-        label.innerHTML = `<span class="icon">${row.icon || ""}</span>${row.label}`;
-        const value = document.createElement("strong");
-        value.textContent = row.value || "—";
-        div.append(label, value);
-        container.appendChild(div);
-      });
-    };
-
-    const buildAccordion = () => {
-      const container = $("servicesAccordion");
-      if (!container) return;
-      container.innerHTML = "";
-      const icons = [ICONS.image, ICONS.layers, ICONS.text, ICONS.layers];
-      (DATA.services || []).forEach((section, index) => {
-        const item = document.createElement("div");
-        item.className = "accordion-item";
-        if (window.innerWidth > 900) {
-          item.classList.add("open");
-        }
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "accordion-header";
-        const count = (section.items || []).length;
-        const icon = icons[index] || ICONS.layers;
-        button.innerHTML = `
-          <div class="title-wrap">
-            <span class="icon">${icon}</span>
-            <span class="title">${section.title || ""}</span>
-            <span class="pill">${count} مورد</span>
-            <span class="subtotal">${section.subtotal || ""}</span>
-          </div>
-          <div class="accordion-icon">⌄</div>
-        `;
-
-        const content = document.createElement("div");
-        content.className = "accordion-content";
-        const body = document.createElement("div");
-        body.className = "accordion-body";
-
-        const table = document.createElement("table");
-        table.className = "item-table";
-        table.innerHTML = `
-          <thead>
-            <tr>
-              <th>شرح خدمات</th>
-              <th>تعداد</th>
-              <th>قیمت واحد</th>
-              <th style="text-align:left;">جمع</th>
-            </tr>
-          </thead>
-        `;
-
-        const tbody = document.createElement("tbody");
-        (section.items || []).forEach((row) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${row.title || ""}</td>
-            <td>${row.qty || "—"}</td>
-            <td class="amount">${row.unit || "—"}</td>
-            <td class="amount">${row.total || "—"}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        if (section.note) {
-          const noteRow = document.createElement("tr");
-          noteRow.innerHTML = `<td colspan="4" style="color: var(--text-secondary); font-size: 12px;">${section.note}</td>`;
-          tbody.appendChild(noteRow);
-        }
-
-        table.appendChild(tbody);
-        body.appendChild(table);
-        content.appendChild(body);
-        item.append(button, content);
-        container.appendChild(item);
-
-        button.addEventListener("click", () => {
-          item.classList.toggle("open");
-        });
-      });
-    };
-
-    const render = () => {
-      safeText($("pageTitle"), DATA.invoice?.title || "فاکتور نهایی");
-      safeText($("statusPill"), DATA.invoice?.status || "—");
-      safeText($("summaryBadge"), DATA.invoice?.status || "—");
-      safeText($("invoiceNumber"), DATA.invoice?.number || "—");
-      safeText($("issueDate"), DATA.invoice?.issueDate || "—");
-
-      safeText($("designerName"), DATA.brand?.designerName || "—");
-      safeText($("designerRole"), DATA.brand?.designerRole || "—");
-
-      const initials = (DATA.brand?.designerName || "AB").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
-      safeText($("avatar"), initials || "AB");
-
-      safeText($("clientName"), DATA.client?.name || "—");
-      safeText($("projectName"), DATA.project?.name || "—");
-      safeText($("contractRef"), DATA.project?.contractRef || "—");
-
-      safeText($("totalAmount"), DATA.financial?.total || "—");
-      safeText($("paidAmount"), DATA.financial?.paid || "—");
-      safeText($("dueAmount"), DATA.financial?.due || "—");
-
-      safeText($("cardNumber"), DATA.paymentCard?.displayNumber || DATA.paymentCard?.number || "—");
-      safeText($("cardHolder"), DATA.paymentCard?.holder || "—");
-      safeText($("cardBank"), DATA.paymentCard?.bank || "—");
-
-      safeText($("notesText"), DATA.notes || "");
-
-      safeText($("footerName"), DATA.brand?.designerName || "—");
-
-      const footerLinks = $("footerLinks");
-      if (footerLinks) {
-        footerLinks.innerHTML = "";
-        const links = [
-          { label: DATA.brand?.phone, href: DATA.brand?.phone ? `tel:${DATA.brand.phone}` : null },
-          { label: DATA.brand?.email, href: DATA.brand?.email ? `mailto:${DATA.brand.email}` : null },
-          { label: DATA.brand?.instagram ? `@${DATA.brand.instagram}` : null, href: DATA.brand?.instagram ? `https://instagram.com/${DATA.brand.instagram}` : null }
-        ].filter((link) => link.label && link.href);
-
-        links.forEach((link) => {
-          const a = document.createElement("a");
-          a.textContent = link.label;
-          a.href = link.href;
-          a.target = "_blank";
-          a.rel = "noopener";
-          footerLinks.appendChild(a);
-        });
-      }
-
-      createFinancialRows();
-      buildAccordion();
-    };
-
-    let toastTimer;
-    const showToast = (message) => {
-      const toast = $("toast");
-      if (!toast) return;
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 1400);
-    };
-
-    const copyCardNumber = async () => {
-      const rawNumber = DATA.paymentCard?.number || "";
-      if (!rawNumber) return;
-      try {
-        await navigator.clipboard.writeText(rawNumber);
-      } catch (error) {
-        const textarea = document.createElement("textarea");
-        textarea.value = rawNumber;
-        document.body.appendChild(textarea);
-        textarea.select();
+    const copyText = async (text) => {
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(_){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
         document.execCommand("copy");
-        textarea.remove();
-      }
-      showToast("شماره کارت کپی شد ✓");
-    };
-
-    const bindEvents = () => {
-      const copyBtn = $("copyCardBtn");
-      if (copyBtn) {
-        copyBtn.addEventListener("click", copyCardNumber);
+        ta.remove();
+        return true;
       }
     };
 
-    render();
-    bindEvents();
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
 
-    window.addEventListener("resize", () => {
-      buildAccordion();
+    document.getElementById("copyLinkBtn").addEventListener("click", async () => {
+      await copyText(location.href);
+      toast("لینک کپی شد ✓");
     });
+
+    document.getElementById("copyJsonBtn").addEventListener("click", async () => {
+      const payload = {
+        invoice: { number: "NP-1403-10-18", issueDate: "۱۸ دی ۱۴۰۳", total: 10000000 },
+        client: { name: "NavaProp" }
+      };
+      await copyText(JSON.stringify(payload, null, 2));
+      toast("اطلاعات کپی شد ✓");
+    });
+
+    document.getElementById("copyCardBtn").addEventListener("click", async () => {
+      await copyText(RAW_CARD);
+      toast("شماره کارت کپی شد ✓");
+    });
+
+    // Mobile-first accordion: collapse all by default under 640px
+    const syncAccordionDefault = () => {
+      const mobile = window.matchMedia("(max-width: 640px)").matches;
+      if(mobile){
+        ["d1","d2","d3"].forEach(id => document.getElementById(id).open = false);
+      }else{
+        document.getElementById("d1").open = true;
+      }
+    };
+    syncAccordionDefault();
+    window.addEventListener("resize", () => { clearTimeout(window.__rs); window.__rs = setTimeout(syncAccordionDefault, 180); });
   </script>
 </body>
 </html>
